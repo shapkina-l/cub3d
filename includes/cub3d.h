@@ -6,7 +6,7 @@
 /*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 14:54:33 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/07/07 15:16:41 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/07/10 12:05:34 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,22 @@ typedef struct s_player
 	int	plane;
 }	t_player;
 
+typedef struct s_color
+{
+	int	r;
+	int	g;
+	int	b;
+}	t_color;
+
 typedef struct s_map
 {
-	int	grid;
-	int	dimensions;
+	char	*no_texture;
+	char	*so_texture;
+	char	*we_texture;
+	char	*ea_texture;
+	t_color	*floor;
+	t_color	*ceiling;
+	int		**map;
 }	t_map;
 
 typedef struct s_texture
