@@ -6,7 +6,7 @@
 /*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 14:54:33 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/07/10 12:05:34 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/07/10 13:16:33 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,20 @@ typedef struct s_player
 {
 	int	position;
 	int	direction;
-	int	plane;
 }	t_player;
+
+typedef struct s_mlx
+{
+	void	*mlx_ptr;
+	void	*win_ptr;
+	void	*img_ptr;
+	char	*img_data;
+	int		bpp;
+	int		line_len;
+	int		endian;
+	int		win_width;
+	int		win_height;
+}	t_mlx;
 
 typedef struct s_color
 {
@@ -57,15 +69,15 @@ typedef struct s_map
 
 typedef struct s_texture
 {
-	int	paths;
-	int	images;
+	char	*paths;
 }	t_texture;
 
 typedef struct s_game
 {
-	int	window;
-	int	images;
-	int	mlx;
+	t_mlx	*mlx;
+	t_map	*map;
 }	t_game;
+
+int	init_graphics(t_game *game);
 
 #endif
