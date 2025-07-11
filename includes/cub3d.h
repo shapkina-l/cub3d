@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lshapkin <lshapkin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 14:54:33 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/07/10 13:16:33 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/07/11 21:53:39 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,28 @@
 # include <signal.h>
 # include <errno.h>
 
-//replace int with proper type everywhere
+# define ESC_KEY	65307
+# define W_KEY		119
+# define A_KEY		97
+# define S_KEY		115
+# define D_KEY		100
+# define LEFT_KEY	65361
+# define RIGHT_KEY	65363
 
 typedef struct s_player
 {
-	int	position;
-	int	direction;
+	double  x;
+    double  y;
+    double  dir_x;
+    double  dir_y;
+    double  plane_x;
+    double  plane_y;
+    int     move_forward;
+    int     move_backward;
+    int     move_left;
+    int     move_right;
+    int     rotate_left;
+    int     rotate_right;
 }	t_player;
 
 typedef struct s_mlx
@@ -74,10 +90,15 @@ typedef struct s_texture
 
 typedef struct s_game
 {
-	t_mlx	*mlx;
-	t_map	*map;
+	t_mlx		*mlx;
+	t_map		*map;
+	t_player	*player;
 }	t_game;
 
 int	init_graphics(t_game *game);
+int	error_msg(char *message);
+int	game_loop(t_game *game);
+int	setup_events(t_game *game);
+int	exit_game(t_game *game);
 
 #endif

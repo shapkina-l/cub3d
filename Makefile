@@ -2,7 +2,7 @@ CC := cc
 FLAGS := -Werror -Wextra -Wall -g 
 MLXFLAGS := -lX11 -lXext -lz -no-pie -lm
 NAME := cub3D
-SRC := src/main.c src/graphics/minilibx_init.c
+SRC := src/main.c src/utils.c src/graphics/minilibx_init.c src/graphics/setup_events.c
 OBJ := $(SRC:.c=.o)
 SRC_BONUS := main_bonus.c
 INCLUDES := libft/libft.a minilibx-linux/libmlx.a

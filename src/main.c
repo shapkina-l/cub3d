@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lshapkin <lshapkin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 14:54:01 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/07/10 13:19:02 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/07/11 21:51:25 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,15 @@ int	init_game(t_game	*game)
 	//game->map = 
 	return (0);
 }
+
+// int game_loop(t_game *game)
+// {
+// 	//to do
+//     update_player(game);
+// 	//to do
+//     render_frame(game);   
+//     return (0);
+// }
 
 int	main(void)
 {
