@@ -6,7 +6,7 @@
 /*   By: lshapkin <lshapkin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 14:54:01 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/07/13 14:43:53 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/07/13 16:12:26 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ int	init_game(t_game	*game)
 
 	//tmp for testing
 	game->map = malloc(sizeof(t_map));
-	game->map->no_texture = "../textures/blue_stone.xmp";
-	game->map->so_texture = "../textures/blue_stone.xmp";
-	game->map->ea_texture = "../textures/blue_stone.xmp";
-	game->map->we_texture = "../textures/blue_stone.xmp";
+	game->map->no_texture = "/home/user/42/cub3d/textures/wolfenstein/blue_stone.xpm";
+	game->map->so_texture = "/home/user/42/cub3d/textures/wolfenstein/color_stone.xpm";
+	game->map->ea_texture = "/home/user/42/cub3d/textures/wolfenstein/grey_stone.xpm";
+	game->map->we_texture = "/home/user/42/cub3d/textures/wolfenstein/purple_stone.xpm";
 	//
 	game->no_texture = malloc(sizeof(t_texture));
 	if (!game->no_texture)
@@ -64,8 +64,8 @@ int	main(void)
 	//init graphics;
 	init_graphics(game);
 	//game_loop
+	
 	//tmp for testing
-	test_all_textures(game);
 	sleep(5);
 	return (0);
 }

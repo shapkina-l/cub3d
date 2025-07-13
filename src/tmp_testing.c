@@ -19,7 +19,7 @@ void display_texture_test(t_game *game, t_texture *tex, char *texture_name)
     }
     
     // Create test window
-    test_win = mlx_new_window(game->mlx, tex->width, tex->height, texture_name);
+    test_win = mlx_new_window(game->mlx->mlx_ptr, tex->width, tex->height, texture_name);
     if (!test_win)
     {
         printf("Error: Could not create test window\n");
@@ -27,7 +27,7 @@ void display_texture_test(t_game *game, t_texture *tex, char *texture_name)
     }
     
     // Create image for the test window
-    test_img = mlx_new_image(game->mlx, tex->width, tex->height);
+    test_img = mlx_new_image(game->mlx->mlx_ptr, tex->width, tex->height);
     test_addr = mlx_get_data_addr(test_img, &bpp, &line_len, &endian);
     
     // Copy texture data to test image
@@ -48,7 +48,7 @@ void display_texture_test(t_game *game, t_texture *tex, char *texture_name)
     }
     
     // Display the image
-    mlx_put_image_to_window(game->mlx, test_win, test_img, 0, 0);
+    mlx_put_image_to_window(game->mlx->mlx_ptr, test_win, test_img, 0, 0);
     
     printf("Texture %s loaded successfully!\n", texture_name);
     printf("Dimensions: %dx%d\n", tex->width, tex->height);
@@ -57,7 +57,7 @@ void display_texture_test(t_game *game, t_texture *tex, char *texture_name)
     printf("Press any key in the texture window to continue...\n");
     
     // Clean up test image
-    mlx_destroy_image(game->mlx, test_img);
+    mlx_destroy_image(game->mlx->mlx_ptr, test_img);
 }
 
 // Alternative: Print texture info to console
@@ -114,6 +114,7 @@ void test_all_textures(t_game *game)
     printf("\nDisplay textures in windows? (y/n): ");
     if (scanf("%c", &input) == 1 && (input == 'y' || input == 'Y'))
     {
+
         display_texture_test(game, game->no_texture, "North Texture");
         display_texture_test(game, game->so_texture, "South Texture");
         display_texture_test(game, game->ea_texture, "West Texture");
