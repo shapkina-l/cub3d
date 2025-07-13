@@ -6,7 +6,7 @@
 /*   By: lshapkin <lshapkin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 12:35:18 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/07/11 21:50:25 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/07/13 14:10:58 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ int	init_graphics(t_game *game)
 	if (setup_events(game))
 		return (1);
 	//load textures
+	if (load_textures(game))
+		return (1);
 	//validate textures
 	return (0);
 }

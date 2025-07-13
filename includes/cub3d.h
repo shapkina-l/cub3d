@@ -6,7 +6,7 @@
 /*   By: lshapkin <lshapkin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 14:54:33 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/07/11 21:53:39 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/07/13 14:40:52 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,23 @@ typedef struct s_map
 
 typedef struct s_texture
 {
-	char	*paths;
+	void	*img;
+	char	*addr;
+	int		width;
+	int 	height;
+	int		bpp;
+	int		line_len;
+	int		endian;
 }	t_texture;
 
 typedef struct s_game
 {
 	t_mlx		*mlx;
 	t_map		*map;
+	t_texture	*no_texture;
+	t_texture	*so_texture;
+	t_texture	*we_texture;
+	t_texture	*ea_texture;
 	t_player	*player;
 }	t_game;
 
@@ -100,5 +110,8 @@ int	error_msg(char *message);
 int	game_loop(t_game *game);
 int	setup_events(t_game *game);
 int	exit_game(t_game *game);
+int load_textures(t_game *game);
+//tmp
+void test_all_textures(t_game *game);
 
 #endif
