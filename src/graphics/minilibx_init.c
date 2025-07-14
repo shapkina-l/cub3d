@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minilibx_init.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lshapkin <lshapkin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 12:35:18 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/07/13 14:10:58 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/07/14 11:33:46 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ int	init_mlx(t_game *game)
 	return (0);
 }
 
-int init_image_buffer(t_game *game)
+int	init_image_buffer(t_game *game)
 {
 	game->mlx->img_ptr = mlx_new_image(game->mlx->mlx_ptr,
-		game->mlx->win_width, game->mlx->win_height);
+			game->mlx->win_width, game->mlx->win_height);
 	if (!game->mlx->img_ptr)
 		return (error_msg("Failed to create image buffer"));
 	game->mlx->img_data = mlx_get_data_addr(game->mlx->img_ptr,
@@ -52,9 +52,10 @@ int	init_graphics(t_game *game)
 	//setup events
 	if (setup_events(game))
 		return (1);
+	//validate textures
+		
 	//load textures
 	if (load_textures(game))
 		return (1);
-	//validate textures
 	return (0);
 }

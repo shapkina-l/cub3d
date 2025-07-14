@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lshapkin <lshapkin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 14:54:01 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/07/13 16:12:26 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/07/14 11:32:39 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	main(void)
 	
 	//tmp for testing
 	sleep(5);
+	
+	exit_game(game);
 	return (0);
 }
 
