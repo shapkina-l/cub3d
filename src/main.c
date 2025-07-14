@@ -6,7 +6,7 @@
 /*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 14:54:01 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/07/14 13:57:39 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/07/14 14:01:47 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ int	main(void)
 	if (!game)
 		return (error_msg("Memory allocation failed"), 1);
 	if (init_game(game))
-		return (free(game), error_msg("Data initialization failed"), 1);
+		return (error_msg("Data initialization failed"),
+			exit_game(game), 1);
 	if (init_graphics(game))
 		return (error_msg("Graphics initialization failed"),
 			exit_game(game), 1);
