@@ -6,7 +6,7 @@
 /*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 14:54:01 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/07/14 11:32:39 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/07/14 13:57:39 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,11 @@ int	init_game(t_game	*game)
 	game->mlx = malloc(sizeof(t_mlx));
 	if (!game)
 		return (1);
+	//tmp
+	game->map = NULL;
 	//map parsing and validation
 	//game->map = 
 
-	//tmp for testing
-	game->map = malloc(sizeof(t_map));
-	game->map->no_texture = "/home/user/42/cub3d/textures/wolfenstein/blue_stone.xpm";
-	game->map->so_texture = "/home/user/42/cub3d/textures/wolfenstein/color_stone.xpm";
-	game->map->ea_texture = "/home/user/42/cub3d/textures/wolfenstein/grey_stone.xpm";
-	game->map->we_texture = "/home/user/42/cub3d/textures/wolfenstein/purple_stone.xpm";
-	//
 	game->no_texture = malloc(sizeof(t_texture));
 	if (!game->no_texture)
 		return (1);
@@ -57,12 +52,12 @@ int	main(void)
 
 	game = malloc(sizeof(t_game));
 	if (!game)
-		return (1); //error message?
-	//init game struct;
+		return (error_msg("Memory allocation failed"), 1);
 	if (init_game(game))
-		return (free(game), 1); //error message?
-	//init graphics;
-	init_graphics(game);
+		return (free(game), error_msg("Data initialization failed"), 1);
+	if (init_graphics(game))
+		return (error_msg("Graphics initialization failed"),
+			exit_game(game), 1);
 	//game_loop
 	
 	//tmp for testing

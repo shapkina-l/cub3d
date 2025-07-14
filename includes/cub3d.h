@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lshapkin <lshapkin@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 14:54:33 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/07/13 14:40:52 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/07/14 12:50:08 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,8 @@ int	error_msg(char *message);
 int	game_loop(t_game *game);
 int	setup_events(t_game *game);
 int	exit_game(t_game *game);
-int load_textures(t_game *game);
+int	load_textures(t_game *game);
+int	validate_textures(t_game *game);
 //tmp
 void test_all_textures(t_game *game);
 

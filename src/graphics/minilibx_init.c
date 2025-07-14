@@ -6,7 +6,7 @@
 /*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 12:35:18 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/07/14 11:33:46 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/07/14 12:51:50 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,14 @@ int	init_image_buffer(t_game *game)
 
 int	init_graphics(t_game *game)
 {
-	//init mlx
 	if (init_mlx(game))
 		return (1);
-	//init image
 	if (init_image_buffer(game))
 		return (1);
-	//setup events
 	if (setup_events(game))
 		return (1);
-	//validate textures
-		
-	//load textures
+	if (validate_textures(game))
+		return (1);
 	if (load_textures(game))
 		return (1);
 	return (0);
