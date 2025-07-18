@@ -6,8 +6,8 @@ int	init_mlx(t_game *game)
 	game->mlx->mlx_ptr = mlx_init();
 	if (!game->mlx->mlx_ptr)
 		return (error_msg("Failed to initialize MLX"));
-	game->mlx->win_width = 1024;
-	game->mlx->win_height = 768;
+	game->mlx->win_width = WIN_WIDTH;
+	game->mlx->win_height = WIN_HEIGHT;
 	game->mlx->win_ptr = mlx_new_window(game->mlx->mlx_ptr,
 			game->mlx->win_width, game->mlx->win_height, "CUB3D");
 	if (!game->mlx->win_ptr)

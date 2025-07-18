@@ -6,7 +6,7 @@ NAME := cub3D
 SRC :=	src/main.c src/validation/array_creation.c src/validation/file_validation.c \
 		src/validation/init_init.c src/validation/test_matrix.c src/validation/validation_utils.c \
 		src/map_init.c src/pc_placement.c src/utils.c src/tmp_testing.c \
-		src/graphics/minilibx_init.c src/graphics/setup_events.c src/graphics/textures.c
+		src/graphics/minilibx_init.c src/graphics/setup_events.c src/graphics/textures.c src/raycasting/raycasting.c
 OBJ := $(SRC:.c=.o)
 INCLUDES := libft/libft.a
 

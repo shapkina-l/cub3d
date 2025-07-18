@@ -24,6 +24,8 @@
 # define D_KEY		100
 # define LEFT_KEY	65361
 # define RIGHT_KEY	65363
+# define WIN_WIDTH	1200
+# define WIN_HEIGHT	900
 
 typedef struct s_player
 {
@@ -31,8 +33,8 @@ typedef struct s_player
 	double	y;
 	double	dir_x;
 	double	dir_y;
-	double	plane_x;
-	double	plane_y;
+	// double	plane_x;
+	// double	plane_y;
 	int		move_forward;
 	int		move_backward;
 	int		move_left;
@@ -53,6 +55,28 @@ typedef struct s_mlx
 	int		win_width;
 	int		win_height;
 }	t_mlx;
+
+typedef struct s_raycasting
+{
+	int map_x;
+	int	map_y;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	double delta_dist_x;
+	double delta_dist_y;
+	double plane_x;
+	double plane_y;
+	int	step_x;
+	int step_y;
+	double side_dist_x;
+	double side_dist_y;
+	int	side;
+	double	wall_dist;
+	int line_height;
+	int draw_start;
+	int draw_end;
+	double wall_x;
+}	t_raycasting;
 
 typedef struct s_color
 {
@@ -85,13 +109,14 @@ typedef struct s_texture
 
 typedef struct s_game
 {
-	t_mlx		*mlx;
-	t_map		*map;
-	t_texture	*no_texture;
-	t_texture	*so_texture;
-	t_texture	*we_texture;
-	t_texture	*ea_texture;
-	t_player	*player;
+	t_mlx			*mlx;
+	t_map			*map;
+	t_texture		*no_texture;
+	t_texture		*so_texture;
+	t_texture		*we_texture;
+	t_texture		*ea_texture;
+	t_player		*player;
+	t_raycasting	*raycast;
 }	t_game;
 
 typedef struct s_init
@@ -150,6 +175,8 @@ int		setup_events(t_game *game);
 int		exit_game(t_game *game);
 int		load_textures(t_game *game);
 int		validate_textures(t_game *game);
+// Raycasting
+void	raycasting(t_game *game);
 // Main
 int		argument_validation(int arc, char **arv);
 int		file_validation(t_game	*game, char *argument);

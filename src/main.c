@@ -31,10 +31,6 @@ int	file_validation(t_game	*game, char *argument)
 {
 	t_init		init;
 
-	// if (arc != 2)
-	// 	return (ft_printf("Error: one .cub file address argument needed.\n"), 1);
-	// if (!validate_file_format(arv[1]))
-	// 	return (ft_printf("Error: argument must be valid .cub file address.\n"), 1);
 	initialize_data(&init);
 	if (!create_array(&init, argument))
 		return (0);
@@ -55,35 +51,6 @@ int	file_validation(t_game	*game, char *argument)
 	printf("end of file validation\n");
 	return (1);
 }
-
-// int	main(int arc, char **arv)
-// {
-// 	t_init		init;
-// 	t_map		map;
-// 	t_player	player;
-
-// 	if (arc != 2)
-// 		return (ft_printf("Error: one .cub file address argument needed.\n"), 1);
-// 	if (!validate_file_format(arv[1]))
-// 		return (ft_printf("Error: argument must be valid .cub file address.\n"), 1);
-// 	initialize_data(&init);
-// 	if (!create_array(&init, arv[1]))
-// 		return (1);
-// 	if (!validate_cub_elements(&init))
-// 		return (ft_printf("Error: map is invalid.\n"), 1);
-// 	initialize_map(&map);
-// 	if (!set_map_data(&init, &map))
-// 		return (ft_printf("Error: map is invalid.\n"), 1);
-// 	if (!validate_map_chars(&map))
-// 		return (ft_printf("Error: map is invalid.\n"), 1);
-// 	if (!validate_map_chars(&map))
-// 		return (ft_printf("Error: map is invalid.\n"), 1);
-// 	print_map(&map);
-// 	print_test_map(&init);
-// 	if (!validate_map_boundaries(&init))
-// 		return (ft_printf("Error: map is invalid.\n"), 1);
-// 	find_starting_point(&map, &player);
-// }
 
 int init_game_extra(t_game	*game)
 {
@@ -109,6 +76,9 @@ int	init_game(t_game	*game, char *argument)
 	init_game_extra(game);
 	if (!file_validation(game, argument))
 		return (1);
+	game->raycast = malloc(sizeof(t_raycasting));
+	if (!game->raycast)
+		return(1);
 	game->no_texture = malloc(sizeof(t_texture));
 	if (!game->no_texture)
 		return (1);
@@ -142,6 +112,24 @@ int argument_validation(int arc, char **arv)
 	return (1);
 }
 
+void	fill_screen(t_game *game)
+{
+	int	j;
+	int	i;
+
+	j = 0;
+	while(j < WIN_HEIGHT)
+	{
+		i = 0;
+		while (i < WIN_WIDTH)
+		{
+			mlx_pixel_put(game->mlx->mlx_ptr, game->mlx->win_ptr, i, j, 0x00FF00);
+			i++;
+		}
+		j++;
+	}
+}
+
 int	main(int arc, char **arv)
 {
 	t_game	*game;
@@ -157,12 +145,13 @@ int	main(int arc, char **arv)
 	if (init_graphics(game))
 		return (error_msg("Graphics initialization failed"),
 			exit_game(game), 1);
+	//fill_screen(game);
 	//game_loop
-	
 	//tmp for testing
-	sleep(5);
+	raycasting(game);
+	sleep(10);
 	
-	exit_game(game);
+	// exit_game(game);
 	return (0);
 }
 

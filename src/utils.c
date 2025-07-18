@@ -27,6 +27,8 @@ void	free_all(t_game	*game)
 			free (game->ea_texture);
 		if (game->we_texture)
 			free (game->we_texture);
+		if (game->raycast)
+			free (game->raycast);
 		free (game);
 	}
 }
