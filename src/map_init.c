@@ -1,0 +1,128 @@
+#include "../includes/cub3d.h"
+
+
+
+int	set_map_matrix(t_init *data, t_map *map, int start)
+{
+	int	i;
+
+	i = 0;
+	while (data->array[start + i])
+		i++;
+	map->map = ft_calloc(i + 2, sizeof(char *));
+	if (!map->map)
+		return (ft_printf("Error\n"), 0);
+	i = 0;
+	while (data->array[start + i])
+	{
+		map->map[i] = ft_strdup(data->array[start + i]);
+		if (!map->map[i])
+			return (ft_printf("Error\n"), 0);
+		i++;
+	}
+	return (1);
+}
+
+void	set_paths(t_map *map, const char *str)
+{
+	int	i;
+	int	start;
+	int	end;
+
+	i = 0;
+	while (str[i] == ' ')
+		i++;
+	if (str[i] == '\0')
+	 	return ;
+	start = i;
+	while (str[i] != ' ' && str[i] != '\0')
+		i++;
+	end = i;
+
+	if (!ft_strncmp("NO", &str[start], end - start))
+		set_texture(map, str, 'N');
+	else if (!ft_strncmp("SO", &str[start], end - start))
+		set_texture(map, str, 'S');
+	else if (!ft_strncmp("WE", &str[start], end - start))
+		set_texture(map, str, 'W');
+	else if (!ft_strncmp("EA", &str[start], end - start))
+		set_texture(map, str, 'E');
+	else if (!ft_strncmp("F", &str[start], end - start))
+		set_colour(map, str, 'F');
+	else if (!ft_strncmp("C", &str[start], end - start))
+		set_colour(map, str, 'C');
+}
+
+int	create_map_and_test_map(t_init *data, t_map *map, int j)
+{
+	int		i = 0;
+	char	c;
+
+	while (data->array[j][i] == ' ')
+		i++;
+	c = data->array[j][i];
+	if (c == '1' || c == '0')
+	{
+		if (!set_map_matrix(data, map, j))
+			return (0);
+		find_map_dimensions(data, map);
+		if (!set_test_map_matrix(data, j))
+			return (0);
+		return (1);
+	}
+	return (2);
+}
+
+int	set_map_data(t_init *data, t_map *map)
+{
+	int	j = 0;
+	int	result;
+
+	while (data->array[j])
+	{
+		if (data->array[j][0] == '\0')
+		{
+			j++;
+			continue;
+		}
+		set_paths(map, data->array[j]);
+		result = create_map_and_test_map(data, map, j);
+		if (result == 0)
+			return (0);
+		else if (result == 1)
+			return (1);
+		j++;
+	}
+	return (0);
+}
+
+// int	set_map_data(t_init *data, t_map *map)
+// {
+// 	int	i;
+// 	int	j;
+
+// 	j = 0;
+// 	while (data->array[j] != NULL)
+// 	{
+// 		if (data->array[j][0] == '\0')
+// 		{
+// 			j++;
+// 			continue;
+// 		}
+// 		set_paths(map, data->array[j]);
+// 		i = 0;
+// 		while (data->array[j][i] == ' ')
+// 			i++;
+// 		if (data->array[j][i] == '1' || data->array[j][i] == '0')
+// 		{
+// 			if (!set_map_matrix(data, map, j))
+// 				return (0);
+// 			find_map_dimensions(data, map);
+// 			if (!set_test_map_matrix(data, j))
+// 				return (0);
+// 			return (1);
+// 		}
+// 		j++;
+// 	}
+// 	return (0);
+// }
