@@ -1,18 +1,4 @@
-<<<<<<< HEAD
-=======
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/07 14:54:33 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/07/14 12:50:08 by lshapkin         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
->>>>>>> 172f5ce1f2c0d914f72604d370fe3da76c00e298
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -41,7 +27,6 @@
 
 typedef struct s_player
 {
-<<<<<<< HEAD
 	double	x;
 	double	y;
 	double	dir_x;
@@ -54,20 +39,6 @@ typedef struct s_player
 	int		move_right;
 	int		rotate_left;
 	int		rotate_right;
-=======
-	double  x;
-    double  y;
-    double  dir_x;
-    double  dir_y;
-    double  plane_x;
-    double  plane_y;
-    int     move_forward;
-    int     move_backward;
-    int     move_left;
-    int     move_right;
-    int     rotate_left;
-    int     rotate_right;
->>>>>>> 172f5ce1f2c0d914f72604d370fe3da76c00e298
 }	t_player;
 
 typedef struct s_mlx
@@ -166,12 +137,12 @@ int		check_fill_neighbors(t_init *data, int y, int x);
 int		ft_strlen_newline(const char *str);
 char	*ft_strdup_newline(char *src);
 char	*ft_strdup_spaces(const char *s, int width);
-void	set_colour(t_map *map, const char *str, char type);
-int		set_texture(t_map *map, const char *str, char type);
+void	set_colour_path(t_map *map, const char *str, char type);
+int		set_texture_path(t_map *map, const char *str, char type);
 // Player-Character Placement
 void	set_starting_point(t_map *map, t_player *player, int y, int x);
 void	find_starting_point(t_map *map, t_player *player);
-//	Minilibx Handling
+// Minilibx Handling
 int		init_graphics(t_game *game);
 int		error_msg(char *message);
 int		game_loop(t_game *game);
@@ -179,6 +150,9 @@ int		setup_events(t_game *game);
 int		exit_game(t_game *game);
 int		load_textures(t_game *game);
 int		validate_textures(t_game *game);
+// Main
+int		argument_validation(int arc, char **arv);
+int		file_validation(t_game	*game, char *argument);
 // Temporary
 void	test_all_textures(t_game *game);
 

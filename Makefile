@@ -3,10 +3,10 @@ FLAGS := -Werror -Wextra -Wall -g
 # MLXFLAGS := -lX11 -lXext -lz -no-pie -lm
 MLXFLAGS = -lmlx -lXext -lX11 -lm
 NAME := cub3D
-SRC :=	src/main.c src/array_creation.c src/file_validation.c \
-		src/init_init.c src/map_init.c src/pc_placement.c \
-		src/test_matrix.c src/utils2.c src/utils.c src/tmp_testing.c \
-		 src/graphics/minilibx_init.c src/graphics/setup_events.c src/graphics/textures.c
+SRC :=	src/main.c src/validation/array_creation.c src/validation/file_validation.c \
+		src/validation/init_init.c src/validation/test_matrix.c src/validation/validation_utils.c \
+		src/map_init.c src/pc_placement.c src/utils.c src/tmp_testing.c \
+		src/graphics/minilibx_init.c src/graphics/setup_events.c src/graphics/textures.c
 OBJ := $(SRC:.c=.o)
 INCLUDES := libft/libft.a
 

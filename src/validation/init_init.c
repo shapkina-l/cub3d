@@ -1,4 +1,4 @@
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 void	find_map_dimensions(t_init *data, t_map *map)
 {

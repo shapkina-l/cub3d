@@ -6,7 +6,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/cub3D", // Path to the compiled executable
-            "args": [""],  // Command-line arguments if any
+            "args": ["maps/good/subject_map.cub"],  // Command-line arguments if any
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

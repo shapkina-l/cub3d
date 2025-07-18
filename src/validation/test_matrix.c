@@ -1,4 +1,4 @@
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 int	create_test_border_row(t_init *data, int row)
 {
