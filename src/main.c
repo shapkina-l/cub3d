@@ -35,21 +35,18 @@ int	file_validation(t_game	*game, char *argument)
 	if (!create_array(&init, argument))
 		return (0);
 	if (!validate_cub_elements(&init))
-		return (error_msg("Error: map is invalid."), 0);
+		return (0);
 	initialize_map(game->map);
 	if (!set_map_data(&init, game->map))
-		return (error_msg("Error: map is invalid."), 0);
+		return (0);
 	if (!validate_map_chars(game->map))
-		return (error_msg("Error: map is invalid."), 0);
-	if (!validate_map_chars(game->map))
-		return (error_msg("Error: map is invalid."), 0);
+		return (0);
 	// print_map(game->map);
 	// print_test_map(&init);
 	if (!validate_map_boundaries(&init))
-		return (error_msg("Error: map is invalid."), 0);
+		return (0);
 	// print_test_map(&init);
 	find_starting_point(game->map, game->player);
-	printf("end of file validation\n");
 	return (1);
 }
 
@@ -95,21 +92,21 @@ int	init_game(t_game	*game, char *argument)
 	return (0);
 }
 
-int game_loop(t_game *game)
-{
-	//to do
-    update_player(game);
-	//to do
-    raycasting(game);   
-    return (0);
-}
+// int game_loop(t_game *game)
+// {
+// 	//to do
+//     update_player(game);
+// 	//to do
+//     raycasting(game);   
+//     return (0);
+// }
 
 int argument_validation(int arc, char **arv)
 {
 	if (arc != 2)
-		return (error_msg("Error: one .cub file address argument needed."), 0);
+		return (error_msg("One .cub file address argument needed."), 0);
 	if (!validate_file_format(arv[1]))
-		return (error_msg("Error: argument must be valid .cub file address."), 0);
+		return (error_msg("Argument must be valid .cub file address."), 0);
 	return (1);
 }
 
@@ -139,12 +136,12 @@ int	main(int arc, char **arv)
 		return(1);
 	game = malloc(sizeof(t_game));
 	if (!game)
-		return (error_msg("Memory allocation failed"), 1);
+		return (error_msg("Memory allocation failed."), 1);
 	if (init_game(game, arv[1]))
-		return (error_msg("Data initialization failed"),
+		return (error_msg("Data initialization failed."),
 			exit_game(game), 1);
 	if (init_graphics(game))
-		return (error_msg("Graphics initialization failed"),
+		return (error_msg("Graphics initialization failed."),
 			exit_game(game), 1);
 	// fill_screen(game);
 	//game_loop

@@ -1,37 +1,5 @@
 #include "../../includes/cub3d.h"
 
-int	ft_strlen_newline(const char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str)
-	{
-		while (str[i] && str[i] != '\n')
-			i++;
-		return (i);
-	}
-	return (0);
-}
-
-char	*ft_strdup_newline(char *src)
-{
-	char	*dup;
-	int		i;
-
-	dup = malloc(ft_strlen_newline(src) + 1);
-	if (!dup)
-		return (0);
-	i = 0;
-	while (src[i] && src[i] != '\n')
-	{
-		dup[i] = src[i];
-		i++;
-	}
-	dup[i] = '\0';
-	return (dup);
-}
-
 char	*ft_strdup_spaces(const char *s, int width)
 {
 	char	*res;
@@ -83,6 +51,28 @@ void	set_colour_path(t_map *map, const char *str, char type)
 	target->b = ft_atoi(&str[i]);
 }
 
+char	*ft_texture_dup(const char *s)
+{
+	char	*res;
+	int		len;
+	int		i;
+
+	len = 0;
+	i = 0;
+	while (s[len] != ' ' && s[len] != '\0')
+		len++;
+	res = (char *)malloc((len + 1) * sizeof(char));
+	if (!res)
+		return (NULL);
+	while (i != len)
+	{
+		res[i] = s[i];
+		i++;
+	}
+	res[i] = '\0';
+	return (res);
+}
+
 int	set_texture_path(t_map *map, const char *str, char type)
 {
 	int			i;
@@ -95,13 +85,13 @@ int	set_texture_path(t_map *map, const char *str, char type)
 	while (str[i] == ' ')
 		i++;
 	if (type == 'N')
-		map->no_texture = ft_strdup(&str[i]);
+		map->no_texture = ft_texture_dup(&str[i]);
 	else if (type == 'S')
-		map->so_texture = ft_strdup(&str[i]);
+		map->so_texture = ft_texture_dup(&str[i]);
 	else if (type == 'W')
-		map->we_texture = ft_strdup(&str[i]);
+		map->we_texture = ft_texture_dup(&str[i]);
 	else if (type == 'E')
-		map->ea_texture = ft_strdup(&str[i]);
+		map->ea_texture = ft_texture_dup(&str[i]);
 	else
 		return (0);
 	// reminder to put guardians

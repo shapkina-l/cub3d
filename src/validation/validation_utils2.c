@@ -1,5 +1,37 @@
 #include "../../includes/cub3d.h"
 
+int	ft_strlen_newline(const char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str)
+	{
+		while (str[i] && str[i] != '\n')
+			i++;
+		return (i);
+	}
+	return (0);
+}
+
+char	*ft_strdup_newline(char *src)
+{
+	char	*dup;
+	int		i;
+
+	dup = malloc(ft_strlen_newline(src) + 1);
+	if (!dup)
+		return (0);
+	i = 0;
+	while (src[i] && src[i] != '\n')
+	{
+		dup[i] = src[i];
+		i++;
+	}
+	dup[i] = '\0';
+	return (dup);
+}
+
 static int	skip_spaces(const char *str, int i)
 {
 	while (str[i] && str[i] == ' ')

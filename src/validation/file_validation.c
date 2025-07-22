@@ -24,7 +24,7 @@ int	validate_map_chars(t_map *map)
 		}
 		j++;
 	}
-	if (count > 1)
+	if (count != 1)
 		return (0);
 	return (1);
 }
