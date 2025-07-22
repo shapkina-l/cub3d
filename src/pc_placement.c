@@ -7,12 +7,12 @@ void	set_starting_point(t_map *map, t_player *player, int y, int x)
 	player->x = x;
 	player->y = y;
 	direction = map->map[y][x];
-	if (direction == 'N')
+	if (direction == 'S')
 	{
 		player->dir_x = 0;
 		player->dir_y = 1;
 	}
-	else if (direction == 'S')
+	else if (direction == 'N')
 	{
 		player->dir_x = 0;
 		player->dir_y = -1;

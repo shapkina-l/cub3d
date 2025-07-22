@@ -16,11 +16,11 @@ int	load_textures(t_game *game)
 {
 	if (load_texture(game, game->no_texture, game->map->no_texture))
 		return (1);
-	if (load_texture(game, game->so_texture, game->map->no_texture))
+	if (load_texture(game, game->so_texture, game->map->so_texture))
 		return (1);
-	if (load_texture(game, game->ea_texture, game->map->no_texture))
+	if (load_texture(game, game->we_texture, game->map->we_texture))
 		return (1);
-	if (load_texture(game, game->we_texture, game->map->no_texture))
+	if (load_texture(game, game->ea_texture, game->map->ea_texture))
 		return (1);
 	return (0);
 }

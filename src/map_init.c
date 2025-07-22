@@ -40,7 +40,7 @@ void	set_paths(t_map *map, const char *str)
 	end = i;
 
 	if (!ft_strncmp("NO", &str[start], end - start))
-		set_texture_path(map, &str[i], 'N');
+		set_texture_path(map, str, 'N');
 	else if (!ft_strncmp("SO", &str[start], end - start))
 		set_texture_path(map, str, 'S');
 	else if (!ft_strncmp("WE", &str[start], end - start))

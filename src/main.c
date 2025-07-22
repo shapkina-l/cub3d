@@ -95,14 +95,14 @@ int	init_game(t_game	*game, char *argument)
 	return (0);
 }
 
-// int game_loop(t_game *game)
-// {
-// 	//to do
-//     update_player(game);
-// 	//to do
-//     render_frame(game);   
-//     return (0);
-// }
+int game_loop(t_game *game)
+{
+	//to do
+    update_player(game);
+	//to do
+    raycasting(game);   
+    return (0);
+}
 
 int argument_validation(int arc, char **arv)
 {

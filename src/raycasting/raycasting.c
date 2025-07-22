@@ -69,16 +69,54 @@ void step_calculation(t_game *game, t_raycasting *rc)
 	}
 }
 
+void	printing_column(t_game *game, t_raycasting *rc, int x)
+{
+	int	y;
+	int	tex_y;
+	int tex_x;
+	int	pixel_index;
+	int	color;
+	int screen_index;
+	t_texture *current_texture;
+
+	// Select texture based on wall side and direction
+    if (rc->side == 0) // Vertical walls (North/South faces)
+    {
+        if (rc->step_x > 0)
+            current_texture = game->ea_texture; // East wall (player looking west)
+        else
+            current_texture = game->we_texture; // West wall (player looking east)
+    }
+    else // Horizontal walls (East/West faces)
+    {
+        if (rc->step_y > 0)
+            current_texture = game->so_texture; // South wall (player looking north)
+        else
+            current_texture = game->no_texture; // North wall (player looking south)
+    }
+
+    tex_x = (int)(rc->wall_x * current_texture->width);
+	y = rc->draw_start;
+	while(y < rc->draw_end)
+	{
+		tex_y = (int)(y - rc->draw_start) * current_texture->height / rc->line_height ;
+		pixel_index = tex_y * current_texture->line_len + tex_x * (current_texture->bpp / 8);;
+		color = *(unsigned int *)(current_texture->addr + pixel_index);
+		screen_index = (y * WIN_WIDTH + x) * (game->mlx->bpp / 8);
+		*(unsigned int *)(game->mlx->img_data + screen_index) = color;
+		y++;
+	}
+}
+
 void raycasting(t_game *game)
 {
 	int		x;
-	int		i;
 	double camera_x;
 	t_raycasting *rc;
 
 	rc = game->raycast;
 	rc->plane_x = -1 * game->player->dir_y;
-	rc->plane_y = game->player->dir_x;
+	rc->plane_y = +1 * game->player->dir_x;
 
 	x = 0;
 	while (x < WIN_WIDTH)
@@ -93,24 +131,8 @@ void raycasting(t_game *game)
 		step_calculation(game, rc);
 		dda(game, rc);
 		wall_height(game, rc);
-		i = 0;
-		while (i < rc->draw_start)
-		{
-			mlx_pixel_put(game->mlx->mlx_ptr, game->mlx->win_ptr, x, i, 0x0000FF);
-			i++;
-		}
-		i = rc->draw_start;
-		while (i < rc->draw_end)
-		{
-			mlx_pixel_put(game->mlx->mlx_ptr, game->mlx->win_ptr, x, i, 0x00FF00);
-			i++;
-		}
-		i = rc->draw_end;
-		while (i < WIN_HEIGHT)
-		{
-			mlx_pixel_put(game->mlx->mlx_ptr, game->mlx->win_ptr, x, i, 0x0000FF);
-			i++;
-		}
+		printing_column(game, rc, x);
 		x++;
 	}
+	mlx_put_image_to_window(game->mlx->mlx_ptr, game->mlx->win_ptr, game->mlx->img_ptr, 0, 0);
 }
