@@ -75,7 +75,8 @@ char	*ft_texture_dup(const char *s)
 
 int	set_texture_path(t_map *map, const char *str, char type)
 {
-	int			i;
+	int		i;
+	char	*ptr;
 
 	i = 0;
 	while (str[i] == ' ')
@@ -84,16 +85,18 @@ int	set_texture_path(t_map *map, const char *str, char type)
 		i++;
 	while (str[i] == ' ')
 		i++;
+	ptr = ft_texture_dup(&str[i]);
+	if (!ptr)
+		return (0);
 	if (type == 'N')
-		map->no_texture = ft_texture_dup(&str[i]);
+		map->no_texture = ptr;
 	else if (type == 'S')
-		map->so_texture = ft_texture_dup(&str[i]);
+		map->so_texture = ptr;
 	else if (type == 'W')
-		map->we_texture = ft_texture_dup(&str[i]);
+		map->we_texture = ptr;
 	else if (type == 'E')
-		map->ea_texture = ft_texture_dup(&str[i]);
+		map->ea_texture = ptr;
 	else
 		return (0);
-	// reminder to put guardians
 	return (1);
 }
