@@ -35,14 +35,11 @@ char	*ft_strdup_newline(char *src)
 char	*ft_strdup_spaces(const char *s, int width)
 {
 	char	*res;
-	int		len;
 	int		i;
 
-	len = ft_strlen(s);
 	res = malloc((width + 3) * sizeof(char));
 	if (!res)
 		return (NULL);
-
 	res[0] = ' ';
 	i = 0;
 	while (s[i])
@@ -50,13 +47,12 @@ char	*ft_strdup_spaces(const char *s, int width)
 		res[i + 1] = s[i];
 		i++;
 	}
-	while (i + 1 < width + 1)
+	while (i + 1 < width + 2)
 	{
 		res[i + 1] = ' ';
 		i++;
 	}
 	res[i + 1] = '\0';
-
 	return (res);
 }
 

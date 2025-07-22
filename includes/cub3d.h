@@ -158,12 +158,14 @@ int		set_test_map_matrix(t_init *data, int start);
 int		validate_map_boundaries(t_init *data);
 int		fill(t_init *data, int y, int x);
 int		check_fill_neighbors(t_init *data, int y, int x);
-// Utils
+// Validation Utils
 int		ft_strlen_newline(const char *str);
 char	*ft_strdup_newline(char *src);
 char	*ft_strdup_spaces(const char *s, int width);
 void	set_colour_path(t_map *map, const char *str, char type);
 int		set_texture_path(t_map *map, const char *str, char type);
+// Validation Utils 2
+int		colour_verification(const char *str);
 // Player-Character Placement
 void	set_starting_point(t_map *map, t_player *player, int y, int x);
 void	find_starting_point(t_map *map, t_player *player);

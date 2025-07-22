@@ -23,24 +23,23 @@ int	set_test_map_matrix(t_init *data, int start)
 
 	data->test_map = ft_calloc(data->height + 3, sizeof(char *));
 	if (!data->test_map)
-		return (ft_printf("Error\n"), 0);
+		return (0);
 	if (!create_test_border_row(data, 0))
-		return (ft_printf("Error\n"), 0);
+		return (0);
 	i = 1;
 	while (i <= data->height)
 	{
 		data->test_map[i] = ft_strdup_spaces(data->array[start + i - 1],
 				data->width);
 		if (!data->test_map[i])
-			return (ft_printf("Error\n"), 0);
+			return (0);
 		i++;
 	}
 	if (!create_test_border_row(data, data->height + 1))
-		return (ft_printf("Error\n"), 0);
+		return (0);
 	data->test_map[data->height + 2] = NULL;
 	return (1);
 }
-
 
 int	validate_map_boundaries(t_init *data)
 {
@@ -49,9 +48,9 @@ int	validate_map_boundaries(t_init *data)
 
 int	fill(t_init *data, int y, int x)
 {
-	if (x < 0 || y < 0 || x >= data->width || y >= data->height)
+	if (x < 0 || y < 0 || x >= data->width + 2 || y >= data->height + 2)
 		return (1);
-	if (data->test_map[y][x] == '1' || data->test_map[y][x] == 'X')
+	if (data->test_map[y][x] == '1' || data->test_map[y][x] == 'X' || data->test_map[y][x] == '\n' || data->test_map[y][x] == '\0')
 		return (1);
 	if (data->test_map[y][x] == '0' || data->test_map[y][x] == 'N'
 		|| data->test_map[y][x] == 'S' || data->test_map[y][x] == 'W'

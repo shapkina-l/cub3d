@@ -43,10 +43,11 @@ int	file_validation(t_game	*game, char *argument)
 		return (error_msg("Error: map is invalid."), 0);
 	if (!validate_map_chars(game->map))
 		return (error_msg("Error: map is invalid."), 0);
-	print_map(game->map);
-	print_test_map(&init);
+	// print_map(game->map);
+	// print_test_map(&init);
 	if (!validate_map_boundaries(&init))
 		return (error_msg("Error: map is invalid."), 0);
+	// print_test_map(&init);
 	find_starting_point(game->map, game->player);
 	printf("end of file validation\n");
 	return (1);
@@ -145,13 +146,13 @@ int	main(int arc, char **arv)
 	if (init_graphics(game))
 		return (error_msg("Graphics initialization failed"),
 			exit_game(game), 1);
-	//fill_screen(game);
+	// fill_screen(game);
 	//game_loop
 	//tmp for testing
 	raycasting(game);
 	sleep(10);
 	
-	// exit_game(game);
+	exit_game(game);
 	return (0);
 }
 

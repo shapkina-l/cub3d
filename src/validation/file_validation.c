@@ -40,10 +40,18 @@ int	handle_id_match(t_init *data, const char *str, int start, int end)
 	else if (!ft_strncmp("EA", &str[start], end - start))
 		data->ea++;
 	else if (!ft_strncmp("F", &str[start], end - start))
+	{
+		if (!colour_verification(&str[end]))
+			return (0);
 		data->f++;
+	}
 	else if (!ft_strncmp("C", &str[start], end - start))
+	{
+		if (!colour_verification(&str[end]))
+			return (0);
 		data->c++;
-	else if (!ft_strncmp("1", &str[start], 1))
+	}
+	else if (!ft_strncmp("1", &str[end], 1))
 		return (1);
 	else
 		return (0);

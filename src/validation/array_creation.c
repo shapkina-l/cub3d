@@ -10,7 +10,7 @@ int	count_lines(char *cub_address)
 
 	fd = open(cub_address, O_RDONLY);
 	if (fd < 0)
-		return (ft_printf("Error\n"), 0);
+		return (0);
 	count = 1;
 	bytes = read(fd, buffer, 10000);
 	while (bytes > 0)
@@ -30,13 +30,11 @@ int	count_lines(char *cub_address)
 
 int	create_array_helper(t_init *data, char *line, int fd)
 {
-	int		len;
 	int		i;
 
 	i = 0;
 	while (line)
 	{
-		len = ft_strlen_newline(line);
 		data->array[i] = ft_strdup_newline(line);
 		if (!data->array[i])
 			return (free(line), close(fd), 0);
@@ -57,13 +55,13 @@ int	create_array(t_init *data, char *cub_address)
 	lines = count_lines(cub_address);
 	data->array = ft_calloc(lines + 1, sizeof(char *));
 	if (!data->array)
-		return (ft_printf("Error\n"), 0);
+		return (0);
 	fd = open(cub_address, O_RDONLY);
 	if (fd < 0)
-		return (ft_printf("Error\n"), 0);
+		return (0);
 	line = get_next_line(fd);
 	if (!create_array_helper(data, line, fd))
-		return (ft_printf("Error\n"), 0);
+		return (0);
 	close(fd);
 	return (1);
 }
