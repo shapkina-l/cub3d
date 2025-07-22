@@ -58,24 +58,24 @@ typedef struct s_mlx
 
 typedef struct s_raycasting
 {
-	int map_x;
-	int	map_y;
+	int		map_x;
+	int		map_y;
 	double	ray_dir_x;
 	double	ray_dir_y;
-	double delta_dist_x;
-	double delta_dist_y;
-	double plane_x;
-	double plane_y;
-	int	step_x;
-	int step_y;
-	double side_dist_x;
-	double side_dist_y;
-	int	side;
+	double 	delta_dist_x;
+	double 	delta_dist_y;
+	double 	plane_x;
+	double 	plane_y;
+	int		step_x;
+	int 	step_y;
+	double 	side_dist_x;
+	double 	side_dist_y;
+	int		side;
 	double	wall_dist;
-	int line_height;
-	int draw_start;
-	int draw_end;
-	double wall_x;
+	int 	line_height;
+	int 	draw_start;
+	int 	draw_end;
+	double 	wall_x;
 }	t_raycasting;
 
 typedef struct s_color
@@ -135,8 +135,8 @@ typedef struct s_init
 
 // Array Creation
 int		count_lines(char *cub_address);
-int		create_array_helper(t_init *data, char *line, int fd);
-int		create_array(t_init *data, char *cub_address);
+int		build_array_helper(t_init *data, char *line, int fd);
+int		build_array_from_file(t_init *data, char *cub_address);
 // Validation Data Initialization
 void	find_map_dimensions(t_init *data, t_map *map);
 void	initialize_data(t_init *data);
@@ -180,6 +180,7 @@ int		validate_textures(t_game *game);
 // Raycasting
 void	raycasting(t_game *game);
 // Main
+void	free_init(t_init *init);
 int		argument_validation(int arc, char **arv);
 int		file_validation(t_game	*game, char *argument);
 // Temporary

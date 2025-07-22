@@ -28,7 +28,7 @@ int	count_lines(char *cub_address)
 	return (count);
 }
 
-int	create_array_helper(t_init *data, char *line, int fd)
+int	build_array_helper(t_init *data, char *line, int fd)
 {
 	int		i;
 
@@ -36,9 +36,12 @@ int	create_array_helper(t_init *data, char *line, int fd)
 	while (line)
 	{
 		data->array[i] = ft_strdup_newline(line);
-		if (!data->array[i])
-			return (free(line), close(fd), 0);
 		free(line);
+		if (!data->array[i])
+		{
+			data->array[i] = NULL;
+			return (close(fd), 0);
+		}
 		i++;
 		line = get_next_line(fd);
 	}
@@ -46,7 +49,7 @@ int	create_array_helper(t_init *data, char *line, int fd)
 	return (1);
 }
 
-int	create_array(t_init *data, char *cub_address)
+int	build_array_from_file(t_init *data, char *cub_address)
 {
 	int		fd;
 	char	*line;
@@ -60,7 +63,7 @@ int	create_array(t_init *data, char *cub_address)
 	if (fd < 0)
 		return (0);
 	line = get_next_line(fd);
-	if (!create_array_helper(data, line, fd))
+	if (!build_array_helper(data, line, fd))
 		return (0);
 	close(fd);
 	return (1);

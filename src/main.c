@@ -32,7 +32,7 @@ int	file_validation(t_game	*game, char *argument)
 	t_init		init;
 
 	initialize_data(&init);
-	if (!create_array(&init, argument))
+	if (!build_array_from_file(&init, argument))
 		return (0);
 	if (!validate_cub_elements(&init))
 		return (0);
@@ -47,6 +47,7 @@ int	file_validation(t_game	*game, char *argument)
 		return (0);
 	// print_test_map(&init);
 	find_starting_point(game->map, game->player);
+	free_init(&init);
 	return (1);
 }
 

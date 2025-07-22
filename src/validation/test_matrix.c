@@ -6,7 +6,10 @@ int	create_test_border_row(t_init *data, int row)
 
 	data->test_map[row] = malloc((data->width + 3) * sizeof(char));
 	if (!data->test_map[row])
+	{
+		data->test_map[row] = NULL;
 		return (0);
+	}
 	i = 0;
 	while (i < (data->width + 2))
 	{
@@ -32,7 +35,10 @@ int	set_test_map_matrix(t_init *data, int start)
 		data->test_map[i] = ft_strdup_spaces(data->array[start + i - 1],
 				data->width);
 		if (!data->test_map[i])
+		{
+			data->test_map[i] = NULL;
 			return (0);
+		}
 		i++;
 	}
 	if (!create_test_border_row(data, data->height + 1))

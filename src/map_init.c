@@ -11,13 +11,17 @@ int	set_map_matrix(t_init *data, t_map *map, int start)
 		i++;
 	map->map = ft_calloc(i + 2, sizeof(char *));
 	if (!map->map)
-		return (ft_printf("Error\n"), 0);
+		return (0);
 	i = 0;
 	while (data->array[start + i])
 	{
 		map->map[i] = ft_strdup(data->array[start + i]);
 		if (!map->map[i])
-			return (ft_printf("Error\n"), 0);
+		{
+			map->map[i] = NULL;
+			return (0);
+		}
+
 		i++;
 	}
 	return (1);
