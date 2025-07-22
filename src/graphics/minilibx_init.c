@@ -36,8 +36,6 @@ int	init_graphics(t_game *game)
 		return (1);
 	if (init_image_buffer(game))
 		return (1);
-	if (setup_events(game))
-		return (1);
 	if (validate_textures(game))
 		return (1);
 	if (load_textures(game))

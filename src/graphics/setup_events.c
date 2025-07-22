@@ -66,7 +66,6 @@ int	setup_events(t_game *game)
 	mlx_hook(game->mlx->win_ptr, 2, (1L << 0), key_press, game);
 	mlx_hook(game->mlx->win_ptr, 3, (1L << 1), key_release, game);
 	mlx_hook(game->mlx->win_ptr, 17, (1L << 17), exit_game, game);
-//	mlx_loop_hook(game->mlx->mlx_ptr, game_loop, game);
-
+	mlx_loop_hook(game->mlx->mlx_ptr, game_loop, game);
 	return (0);
 }
