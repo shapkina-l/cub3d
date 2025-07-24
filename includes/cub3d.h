@@ -184,6 +184,7 @@ void	raycasting(t_game *game);
 void	free_init(t_init *init);
 int		argument_validation(int arc, char **arv);
 int		file_validation(t_game	*game, char *argument);
+void	update_player(t_game *game);
 // Temporary
 void	test_all_textures(t_game *game);
 

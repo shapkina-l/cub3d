@@ -93,55 +93,6 @@ int	init_game(t_game	*game, char *argument)
 	return (0);
 }
 
-void update_player(t_game *game)
-{
-	double move_speed = 0.1;
-	double rot_speed = 0.05;
-
-	move_speed = 0.1;
-	rot_speed = 0.05;
-	if (game->player->move_forward == 1)
-	{
-		game->player->x += game->player->dir_x * move_speed;
-		game->player->y += game->player->dir_y * move_speed;
-	}
-	if (game->player->move_backward == 1)
-	{
-		game->player->x -= game->player->dir_x * move_speed;
-		game->player->y -= game->player->dir_y * move_speed;
-	}
-	if (game->player->move_left == 1)
-	{
-		game->player->x -= game->player->dir_y * move_speed;
-		game->player->y += game->player->dir_x * move_speed;
-	}
-	if (game->player->move_right == 1)
-	{
-		game->player->x += game->player->dir_y * move_speed;
-		game->player->y -= game->player->dir_x * move_speed;
-	}
-	if (game->player->rotate_left == 1)
-	{
-		double old_dir_x = game->player->dir_x;
-		game->player->dir_x = game->player->dir_x * cos(rot_speed) - game->player->dir_y * sin(rot_speed);
-		game->player->dir_y = old_dir_x * sin(rot_speed) + game->player->dir_y * cos(rot_speed);
-	
-		double old_plane_x = game->raycast->plane_x;
-		game->raycast->plane_x = game->raycast->plane_x * cos(rot_speed) - game->raycast->plane_y * sin(rot_speed);
-		game->raycast->plane_y = old_plane_x * sin(rot_speed) + game->raycast->plane_y * cos(rot_speed);
-	}
-	if (game->player->rotate_right == 1)
-	{
-		double old_dir_x = game->player->dir_x;
-		game->player->dir_x = game->player->dir_x * cos(-rot_speed) - game->player->dir_y * sin(-rot_speed);
-		game->player->dir_y = old_dir_x * sin(-rot_speed) + game->player->dir_y * cos(-rot_speed);
-
-		double old_plane_x = game->raycast->plane_x;
-		game->raycast->plane_x = game->raycast->plane_x * cos(-rot_speed) - game->raycast->plane_y * sin(-rot_speed);
-		game->raycast->plane_y = old_plane_x * sin(-rot_speed) + game->raycast->plane_y * cos(-rot_speed);
-	}
-}
-
 int game_loop(t_game *game)
 {
 	update_player(game);
