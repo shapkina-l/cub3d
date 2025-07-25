@@ -85,10 +85,10 @@ int	init_game(t_game	*game, char *argument)
 	init_game_extra(game);
 	if (!file_validation(game, argument))
 		return (1);
-	game->raycast = malloc(sizeof(t_raycasting));
+	game->raycast = malloc(sizeof(t_rc));
 	if (!game->raycast)
 		return(1);
-	ft_memset(game->raycast, 0, sizeof(t_raycasting));
+	ft_memset(game->raycast, 0, sizeof(t_rc));
 	game->no_texture = malloc(sizeof(t_texture));
 	if (!game->no_texture)
 		return (1);

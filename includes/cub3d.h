@@ -56,7 +56,7 @@ typedef struct s_mlx
 	int		win_height;
 }	t_mlx;
 
-typedef struct s_raycasting
+typedef struct s_rc
 {
 	int		map_x;
 	int		map_y;
@@ -76,7 +76,7 @@ typedef struct s_raycasting
 	int 	draw_start;
 	int 	draw_end;
 	double 	wall_x;
-}	t_raycasting;
+}	t_rc;
 
 typedef struct s_color
 {
@@ -116,7 +116,7 @@ typedef struct s_game
 	t_texture		*we_texture;
 	t_texture		*ea_texture;
 	t_player		*player;
-	t_raycasting	*raycast;
+	t_rc			*raycast;
 }	t_game;
 
 typedef struct s_init
@@ -132,6 +132,21 @@ typedef struct s_init
 	char	**array;
 	char	**test_map;
 }	t_init;
+
+typedef struct s_print
+{
+	int			y;
+	int			tex_x;
+	int			tex_y;
+	int			pixel_index;
+	int			color;
+	int			floor_c;
+	int			ceiling_c;
+	int			screen_index;
+	t_texture 	*cur_t;
+
+}	t_print;
+
 
 // Array Creation
 int		count_lines(char *cub_address);
