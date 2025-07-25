@@ -16,18 +16,18 @@ void	find_map_dimensions(t_init *data, t_map *map)
 	data->height = i;
 }
 
-void	initialize_data(t_init *data)
+void	initialize_init(t_init *init)
 {
-	data->no = 0;
-	data->so = 0;
-	data->we = 0;
-	data->ea = 0;
-	data->f = 0;
-	data->c = 0;
-	data->width = 0;
-	data->height = 0;
-	data->array = NULL;
-	data->test_map = NULL;
+	init->no = 0;
+	init->so = 0;
+	init->we = 0;
+	init->ea = 0;
+	init->f = 0;
+	init->c = 0;
+	init->width = 0;
+	init->height = 0;
+	init->array = NULL;
+	init->test_map = NULL;
 }
 
 void	initialize_map(t_map *map)
@@ -37,6 +37,12 @@ void	initialize_map(t_map *map)
 	map->we_texture = NULL;
 	map->ea_texture = NULL;
 	map->floor = (t_color *)malloc(sizeof(t_color));
+	map->floor->r = 0;
+	map->floor->g = 0;
+	map->floor->b = 0;
 	map->ceiling = (t_color *)malloc(sizeof(t_color));
+	map->ceiling->r = 0;
+	map->ceiling->g = 0;
+	map->ceiling->b = 0;
 	map->map = NULL;
 }

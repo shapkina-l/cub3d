@@ -57,59 +57,67 @@ void	free_map(t_game	*game)
 	free(game->map);
 }
 
-void	free_all(t_game	*game)
+void	free_texture(t_game	*game, char type)
 {
-	if (game)
+	t_texture	*ptr;
+
+	ptr = NULL;
+	if (type == 'N')
+		ptr = game->no_texture;
+	else if (type == 'S')
+		ptr = game->so_texture;
+	else if (type == 'W')
+		ptr = game->we_texture;
+	else if (type == 'E')
+		ptr = game->ea_texture;
+	if (ptr)
 	{
-		if (game->mlx)
-			free (game->mlx);
-		if (game->map) 
-			free_map(game);
-		if (game->no_texture)
-			free (game->no_texture);
-		if (game->so_texture)
-			free (game->so_texture);
-		if (game->ea_texture)
-			free (game->ea_texture);
-		if (game->we_texture)
-			free (game->we_texture);
-		if (game->raycast)
-			free (game->raycast);
-		free (game);
+		if (ptr->img)
+			mlx_destroy_image(game->mlx->mlx_ptr, ptr->img);
+		free(ptr);
 	}
 }
 
-// void	free_all(t_game	*game)
-// {
-// 	if (game)
-// 	{
-// 		if (game->mlx)
-// 			free (game->mlx);
-// 		if (game->map) 
-// 			free (game->map);
-// 		if (game->no_texture)
-// 			free (game->no_texture);
-// 		if (game->so_texture)
-// 			free (game->so_texture);
-// 		if (game->ea_texture)
-// 			free (game->ea_texture);
-// 		if (game->we_texture)
-// 			free (game->we_texture);
-// 		if (game->raycast)
-// 			free (game->raycast);
-// 		free (game);
-// 	}
-// }
-
-int	exit_game(t_game *game)
+void	free_mlx(t_game	*game)
 {
 	if (game->mlx->img_ptr)
 		mlx_destroy_image(game->mlx->mlx_ptr, game->mlx->img_ptr);
 	if (game->mlx->win_ptr)
 		mlx_destroy_window(game->mlx->mlx_ptr, game->mlx->win_ptr);
 	if (game->mlx->mlx_ptr)
+	{	
 		mlx_destroy_display(game->mlx->mlx_ptr);
-	free(game->mlx->mlx_ptr);
+		free(game->mlx->mlx_ptr);
+	}
+	free (game->mlx);
+}
+
+void	free_all(t_game	*game)
+{
+	if (game)
+	{
+		if (game->map) 
+			free_map(game);
+		if (game->no_texture)
+			free_texture(game, 'N');
+		if (game->so_texture)
+			free_texture(game, 'S');
+		if (game->we_texture)
+			free_texture(game, 'W');
+		if (game->ea_texture)
+			free_texture(game, 'E');
+		if (game->player)
+			free(game->player);
+		if (game->raycast)
+			free (game->raycast);
+		if (game->mlx)
+			free_mlx(game);
+		free (game);
+	}
+}
+
+int	exit_game(t_game *game)
+{
 	free_all(game);
 	exit (0);
 }
