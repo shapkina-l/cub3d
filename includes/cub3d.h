@@ -139,7 +139,7 @@ int		build_array_helper(t_init *data, char *line, int fd);
 int		build_array_from_file(t_init *data, char *cub_address);
 // Validation Data Initialization
 void	find_map_dimensions(t_init *data, t_map *map);
-void	initialize_data(t_init *data);
+void	initialize_init(t_init *data);
 void	initialize_map(t_map *map);
 // File Validation
 int		validate_map_chars(t_map *map);

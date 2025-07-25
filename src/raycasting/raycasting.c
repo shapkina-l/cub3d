@@ -69,6 +69,13 @@ void step_calculation(t_game *game, t_raycasting *rc)
 	}
 }
 
+int	rgb_transformation(int r, int g, int b)
+{
+	return ((r & 0xFF) << 16)
+	| ((g & 0xFF) << 8)
+	| (b & 0xFF);
+}
+
 void	printing_column(t_game *game, t_raycasting *rc, int x)
 {
 	int	y;
@@ -76,6 +83,8 @@ void	printing_column(t_game *game, t_raycasting *rc, int x)
 	int tex_x;
 	int	pixel_index;
 	int	color;
+	int	floor_color;
+	int	ceiling_color;
 	int screen_index;
 	t_texture *current_texture;
 
@@ -94,9 +103,19 @@ void	printing_column(t_game *game, t_raycasting *rc, int x)
         else
             current_texture = game->no_texture; // North wall (player looking south)
     }
-
-    tex_x = (int)(rc->wall_x * current_texture->width);
-	y = rc->draw_start;
+	ceiling_color = rgb_transformation(game->map->ceiling->r, 
+		game->map->ceiling->g, game->map->ceiling->b);
+	floor_color = rgb_transformation(game->map->floor->r, 
+		game->map->floor->g, game->map->floor->b);
+	y = 0;
+	while(y < rc->draw_start)
+	{
+		screen_index = (y * WIN_WIDTH + x) * (game->mlx->bpp / 8);
+		*(unsigned int *)(game->mlx->img_data + screen_index) = ceiling_color;
+		y++;
+	}
+	tex_x = (int)(rc->wall_x * current_texture->width);
+	// y = rc->draw_start;
 	while(y < rc->draw_end)
 	{
 		tex_y = (int)(y - rc->draw_start) * current_texture->height / rc->line_height ;
@@ -104,6 +123,12 @@ void	printing_column(t_game *game, t_raycasting *rc, int x)
 		color = *(unsigned int *)(current_texture->addr + pixel_index);
 		screen_index = (y * WIN_WIDTH + x) * (game->mlx->bpp / 8);
 		*(unsigned int *)(game->mlx->img_data + screen_index) = color;
+		y++;
+	}
+	while(y < WIN_HEIGHT)
+	{
+		screen_index = (y * WIN_WIDTH + x) * (game->mlx->bpp / 8);
+		*(unsigned int *)(game->mlx->img_data + screen_index) = floor_color;
 		y++;
 	}
 }
