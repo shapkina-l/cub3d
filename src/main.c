@@ -1,30 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/25 16:56:50 by lshapkin          #+#    #+#             */
+/*   Updated: 2025/07/25 16:56:53 by lshapkin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
-
-// void	print_map(t_map *map)
-// {
-// 	int	j;
-
-// 	printf("map:\n");
-// 	j = 0;
-// 	while (map->map[j])
-// 	{
-// 		printf("%s\n", map->map[j]);
-// 		j++;
-// 	}
-// }
-
-// void	print_test_map(t_init *init)
-// {
-// 	int	j;
-
-// 	printf("test map:\n");
-// 	j = 0;
-// 	while (init->test_map[j])
-// 	{
-// 		printf("%s\n", init->test_map[j]);
-// 		j++;
-// 	}
-// }
 
 int	file_validation(t_game	*game, char *argument)
 {

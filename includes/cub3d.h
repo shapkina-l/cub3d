@@ -196,6 +196,7 @@ int		load_textures(t_game *game);
 int		validate_textures(t_game *game);
 // Raycasting
 void	raycasting(t_game *game);
+void	printing_column(t_game *game, t_rc *rc, int x);
 // Main
 void	free_init(t_init *init);
 int		argument_validation(int arc, char **arv);

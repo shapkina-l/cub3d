@@ -1,27 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   setup_events.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/25 16:48:51 by lshapkin          #+#    #+#             */
+/*   Updated: 2025/07/25 16:48:54 by lshapkin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
-// // X11 Event Codes
-// #define KeyPress        2
-// #define KeyRelease      3
-// #define ButtonPress     4    // Mouse button press
-// #define ButtonRelease   5    // Mouse button release
-// #define MotionNotify    6    // Mouse movement
-// #define EnterNotify     7    // Mouse enters window
-// #define LeaveNotify     8    // Mouse leaves window
-// #define FocusIn         9    // Window gains focus
-// #define FocusOut        10   // Window loses focus
-// #define Expose          12   // Window needs redraw
-// #define DestroyNotify   17   // Window is being destroyed
-
-// // X11 Event Masks (what events to capture)
-// #define NoEventMask         0L
-// #define KeyPressMask        (1L<<0)  // Capture key presses
-// #define KeyReleaseMask      (1L<<1)  // Capture key releases
-// #define ButtonPressMask     (1L<<2)  // Capture mouse button presses
-// #define ButtonReleaseMask   (1L<<3)  // Capture mouse button releases
-// #define PointerMotionMask   (1L<<6)  // Capture mouse movement
-// #define StructureNotifyMask (1L<<17) // Capture window structure changes
 
 int	key_press(int keycode, t_game *game)
 {
