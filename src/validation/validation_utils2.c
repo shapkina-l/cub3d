@@ -54,7 +54,7 @@ static int	skip_digits(const char *str, int i)
 
 int colour_verification(const char *str)
 {
-		int	i;
+	int	i;
 	int	count;
 
 	i = 0;

@@ -73,6 +73,7 @@ typedef struct s_rc
 	double 	side_dist_y;
 	int		side;
 	double	wall_dist;
+	double	ray_dist;
 	int 	line_height;
 	int 	draw_start;
 	int 	draw_end;

@@ -7,8 +7,12 @@ void	wall_height(t_game *game, t_rc *rc)
 			/ rc->ray_dir_x;
 	else
 		rc->wall_dist = (rc->map_y - game->player->y + (1 - rc->step_y) / 2)
-			/ rc->ray_dir_y;
+			/ rc->ray_dir_y ;
+	// if (rc->wall_dist < 0.3)  // Prevent getting too close
+    // 	rc->wall_dist = 0.3;
 	rc->line_height = (int)(WIN_HEIGHT / rc->wall_dist);
+	// if (rc->line_height > WIN_HEIGHT * 4)
+    // 	rc->line_height = WIN_HEIGHT * 4;
 	rc->draw_start = -rc->line_height / 2 + WIN_HEIGHT / 2;
 	if (rc->draw_start < 0)
 		rc->draw_start = 0;
@@ -89,8 +93,13 @@ void	printing_column_helper(t_game *game, t_rc *rc, t_print *p, int x)
 	p->tex_x = (int)(rc->wall_x * p->cur_t->width);
 	while (p->y < rc->draw_end)
 	{
-		p->tex_y = (int)(p->y - rc->draw_start)
-			* p->cur_t->height / rc->line_height ;
+		//fix
+		p->tex_y = (int)(p->y - (-rc->line_height / 2 + WIN_HEIGHT / 2))
+			* p->cur_t->height / rc->line_height;
+		if (p->tex_y >= p->cur_t->height)
+			p->tex_y = p->cur_t->height - 1;
+		// if (p->tex_y < 0)
+		//  	p->tex_y = 0;
 		p->pixel_index = p->tex_y * p->cur_t->line_len + p->tex_x
 			* (p->cur_t->bpp / 8);
 		p->color = *(unsigned int *)(p->cur_t->addr + p->pixel_index);

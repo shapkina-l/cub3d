@@ -77,6 +77,19 @@ int	create_map_and_test_map(t_init *data, t_map *map, int j)
 	return (2);
 }
 
+int	verify_rgb_within_bounds(t_map *map)
+{
+	if (map->floor->r < 0 || map->floor->r > 255
+	|| map->floor->g < 0 || map->floor->g > 255
+	|| map->floor->b < 0 || map->floor->b > 255)
+		return (0);
+	if (map->ceiling->r < 0 || map->ceiling->r > 255
+	|| map->ceiling->g < 0 || map->ceiling->g > 255
+	|| map->ceiling->b < 0 || map->ceiling->b > 255)
+		return (0);
+	return (1);
+}
+
 int	set_map_data(t_init *data, t_map *map)
 {
 	int	j = 0;
@@ -90,6 +103,8 @@ int	set_map_data(t_init *data, t_map *map)
 			continue;
 		}
 		set_paths(map, data->array[j]);
+		if (!verify_rgb_within_bounds(map))
+			return (0);
 		result = create_map_and_test_map(data, map, j);
 		if (result == 0)
 			return (0);
