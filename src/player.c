@@ -56,7 +56,7 @@ void	move_player(t_game *game, t_player *player)
 	}
 }
 
-void	rotate_player(t_player *player, t_raycasting *rc)
+void	rotate_player(t_player *player, t_rc *rc)
 {
 	double	speed;
 	double	old_dir_x;
