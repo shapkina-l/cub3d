@@ -1,7 +1,5 @@
 #include "../includes/cub3d.h"
 
-
-
 int	set_map_matrix(t_init *data, t_map *map, int start)
 {
 	int	i;
@@ -21,7 +19,6 @@ int	set_map_matrix(t_init *data, t_map *map, int start)
 			map->map[i] = NULL;
 			return (0);
 		}
-
 		i++;
 	}
 	return (1);
@@ -37,12 +34,11 @@ void	set_paths(t_map *map, const char *str)
 	while (str[i] == ' ')
 		i++;
 	if (str[i] == '\0')
-	 	return ;
+		return ;
 	start = i;
 	while (str[i] != ' ' && str[i] != '\0')
 		i++;
 	end = i;
-
 	if (!ft_strncmp("NO", &str[start], end - start))
 		set_texture_path(map, str, 'N');
 	else if (!ft_strncmp("SO", &str[start], end - start))
@@ -59,9 +55,10 @@ void	set_paths(t_map *map, const char *str)
 
 int	create_map_and_test_map(t_init *data, t_map *map, int j)
 {
-	int		i = 0;
+	int		i;
 	char	c;
 
+	i = 0;
 	while (data->array[j][i] == ' ')
 		i++;
 	c = data->array[j][i];
@@ -80,27 +77,28 @@ int	create_map_and_test_map(t_init *data, t_map *map, int j)
 int	verify_rgb_within_bounds(t_map *map)
 {
 	if (map->floor->r < 0 || map->floor->r > 255
-	|| map->floor->g < 0 || map->floor->g > 255
-	|| map->floor->b < 0 || map->floor->b > 255)
+		|| map->floor->g < 0 || map->floor->g > 255
+		|| map->floor->b < 0 || map->floor->b > 255)
 		return (0);
 	if (map->ceiling->r < 0 || map->ceiling->r > 255
-	|| map->ceiling->g < 0 || map->ceiling->g > 255
-	|| map->ceiling->b < 0 || map->ceiling->b > 255)
+		|| map->ceiling->g < 0 || map->ceiling->g > 255
+		|| map->ceiling->b < 0 || map->ceiling->b > 255)
 		return (0);
 	return (1);
 }
 
 int	set_map_data(t_init *data, t_map *map)
 {
-	int	j = 0;
+	int	j;
 	int	result;
 
+	j = 0;
 	while (data->array[j])
 	{
 		if (data->array[j][0] == '\0')
 		{
 			j++;
-			continue;
+			continue ;
 		}
 		set_paths(map, data->array[j]);
 		if (!verify_rgb_within_bounds(map))

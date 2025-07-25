@@ -14,7 +14,7 @@ int	error_msg(char *message)
 void	free_init(t_init *init)
 {
 	int	i;
-	
+
 	if (init->array)
 	{
 		i = -1;
@@ -85,7 +85,7 @@ void	free_mlx(t_game	*game)
 	if (game->mlx->win_ptr)
 		mlx_destroy_window(game->mlx->mlx_ptr, game->mlx->win_ptr);
 	if (game->mlx->mlx_ptr)
-	{	
+	{
 		mlx_destroy_display(game->mlx->mlx_ptr);
 		free(game->mlx->mlx_ptr);
 	}

@@ -52,7 +52,7 @@ static int	skip_digits(const char *str, int i)
 		return (-1);
 }
 
-int colour_verification(const char *str)
+int	colour_verification(const char *str)
 {
 	int	i;
 	int	count;

@@ -56,7 +56,8 @@ int	fill(t_init *data, int y, int x)
 {
 	if (x < 0 || y < 0 || x >= data->width + 2 || y >= data->height + 2)
 		return (1);
-	if (data->test_map[y][x] == '1' || data->test_map[y][x] == 'X' || data->test_map[y][x] == '\n' || data->test_map[y][x] == '\0')
+	if (data->test_map[y][x] == '1' || data->test_map[y][x] == 'X'
+		|| data->test_map[y][x] == '\n' || data->test_map[y][x] == '\0')
 		return (1);
 	if (data->test_map[y][x] == '0' || data->test_map[y][x] == 'N'
 		|| data->test_map[y][x] == 'S' || data->test_map[y][x] == 'W'

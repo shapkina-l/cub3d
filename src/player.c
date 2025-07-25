@@ -5,7 +5,11 @@ int	wall_check(double move_speed, t_game *game, int code)
 {
 	double	x;
 	double	y;
-	double radius = 0.2;
+	double	radius;
+	int	x_min;
+    int	x_max;
+    int	y_min;
+    int	y_max;
 
 	if (code == 1)
 	{
@@ -27,10 +31,11 @@ int	wall_check(double move_speed, t_game *game, int code)
 		x = (game->player->x + game->player->dir_y * move_speed);
 		y = (game->player->y - game->player->dir_x * move_speed);
 	}
-	int x_min = (int)(x - radius);
-    int x_max = (int)(x + radius);
-    int y_min = (int)(y - radius);
-    int y_max = (int)(y + radius);
+	radius = 0.2;
+	x_min = (int)(x - radius);
+    x_max = (int)(x + radius);
+    y_min = (int)(y - radius);
+    y_max = (int)(y + radius);
 
     for (int i = y_min; i <= y_max; i++)
     {
@@ -40,30 +45,7 @@ int	wall_check(double move_speed, t_game *game, int code)
                 return 0; // collision
         }
     }
-
     return 1; // no collision
-
-	// if (code == 1)
-	// {
-	// 	x = (game->player->x + game->player->dir_x * move_speed) - 0.2;
-	// 	y = (game->player->y + game->player->dir_y * move_speed) - 0.2;
-	// }
-	// if (code == 2)
-	// {
-	// 	x = (game->player->x - game->player->dir_x * move_speed) + 0.2;
-	// 	y = (game->player->y - game->player->dir_y * move_speed) + 0.2;
-	// }
-	// if (code == 3)
-	// {
-	// 	x = (game->player->x - game->player->dir_y * move_speed) - 0.2;
-	// 	y = (game->player->y + game->player->dir_x * move_speed) + 0.2;
-	// }
-	// if (code == 4)
-	// {
-	// 	x = (game->player->x + game->player->dir_y * move_speed) - 0.2;
-	// 	y = (game->player->y - game->player->dir_x * move_speed) + 0.2;
-	// }
-	// return (game->map->map[(int)y][(int)x] != '1');
 }
 
 void	move_player(t_game *game, t_player *player)

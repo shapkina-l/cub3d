@@ -1,31 +1,30 @@
 #include "../includes/cub3d.h"
 
+// void	print_map(t_map *map)
+// {
+// 	int	j;
 
-void	print_map(t_map *map)
-{
-	int	j;
+// 	printf("map:\n");
+// 	j = 0;
+// 	while (map->map[j])
+// 	{
+// 		printf("%s\n", map->map[j]);
+// 		j++;
+// 	}
+// }
 
-	printf("map:\n");
-	j = 0;
-	while (map->map[j])
-	{
-		printf("%s\n", map->map[j]);
-		j++;
-	}
-}
+// void	print_test_map(t_init *init)
+// {
+// 	int	j;
 
-void	print_test_map(t_init *init)
-{
-	int	j;
-
-	printf("test map:\n");
-	j = 0;
-	while (init->test_map[j])
-	{
-		printf("%s\n", init->test_map[j]);
-		j++;
-	}
-}
+// 	printf("test map:\n");
+// 	j = 0;
+// 	while (init->test_map[j])
+// 	{
+// 		printf("%s\n", init->test_map[j]);
+// 		j++;
+// 	}
+// }
 
 int	file_validation(t_game	*game, char *argument)
 {
@@ -41,40 +40,25 @@ int	file_validation(t_game	*game, char *argument)
 		return (free_init(&init), 0);
 	if (!validate_map_chars(game->map))
 		return (free_init(&init), 0);
-	// print_map(game->map);
-	// print_test_map(&init);
 	if (!validate_map_boundaries(&init))
 		return (free_init(&init), 0);
-	// print_test_map(&init);
 	find_starting_point(game->map, game->player);
 	free_init(&init);
 	return (1);
 }
 
-int init_game_extra(t_game *game)
+int	init_game_extra(t_game *game)
 {
 	game->map = malloc(sizeof(t_map));
 	if (!game->map)
 		return (0);
 	ft_memset(game->map, 0, sizeof(t_map));
-
 	game->player = malloc(sizeof(t_player));
 	if (!game->player)
 		return (0);
 	ft_memset(game->player, 0, sizeof(t_player));
 	return (1);
 }
-
-// int init_game_extra(t_game	*game)
-// {
-// 	game->map = malloc(sizeof(t_map));
-// 	if (!game->map)
-// 		return (0);
-// 	game->player = malloc(sizeof(t_player));
-// 	if (!game->player)
-// 		return (0);
-// 	return (1);
-// }
 
 int	init_game(t_game	*game, char *argument)
 {
@@ -87,7 +71,7 @@ int	init_game(t_game	*game, char *argument)
 		return (1);
 	game->raycast = malloc(sizeof(t_rc));
 	if (!game->raycast)
-		return(1);
+		return (1);
 	ft_memset(game->raycast, 0, sizeof(t_rc));
 	game->no_texture = malloc(sizeof(t_texture));
 	if (!game->no_texture)
@@ -108,14 +92,14 @@ int	init_game(t_game	*game, char *argument)
 	return (0);
 }
 
-int game_loop(t_game *game)
+int	game_loop(t_game *game)
 {
 	update_player(game);
 	raycasting(game);
-    return (0);
+	return (0);
 }
 
-int argument_validation(int arc, char **arv)
+int	argument_validation(int arc, char **arv)
 {
 	if (arc != 2)
 		return (error_msg("One .cub file address argument needed."), 0);
@@ -130,12 +114,13 @@ void	fill_screen(t_game *game)
 	int	i;
 
 	j = 0;
-	while(j < WIN_HEIGHT)
+	while (j < WIN_HEIGHT)
 	{
 		i = 0;
 		while (i < WIN_WIDTH)
 		{
-			mlx_pixel_put(game->mlx->mlx_ptr, game->mlx->win_ptr, i, j, 0x00FF00);
+			mlx_pixel_put(game->mlx->mlx_ptr,
+				game->mlx->win_ptr, i, j, 0x00FF00);
 			i++;
 		}
 		j++;
@@ -147,7 +132,7 @@ int	main(int arc, char **arv)
 	t_game	*game;
 
 	if (!argument_validation(arc, arv))
-		return(1);
+		return (1);
 	game = malloc(sizeof(t_game));
 	if (!game)
 		return (error_msg("Memory allocation failed."), 1);
@@ -159,10 +144,7 @@ int	main(int arc, char **arv)
 		return (error_msg("Graphics initialization failed."),
 			exit_game(game), 1);
 	setup_events(game);
-	
-	// Start the MLX event loop (this will call game_loop repeatedly)
 	mlx_loop(game->mlx->mlx_ptr);
 	exit_game(game);
 	return (0);
 }
-
