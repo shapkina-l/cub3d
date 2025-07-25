@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printing.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lshapkin <lshapkin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 16:50:11 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/07/25 17:00:11 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/07/25 20:08:35 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	rgb_transformation(int r, int g, int b)
 		| (b & 0xFF));
 }
 
-void	printing_column_helper(t_game *game, t_rc *rc, t_print *p, int x)
+//segfault with cheeze map
+void	print_ceiling(t_game *game, t_rc *rc, t_print *p, int x)
 {
 	while (p->y < rc->draw_start)
 	{
@@ -27,6 +28,11 @@ void	printing_column_helper(t_game *game, t_rc *rc, t_print *p, int x)
 		*(unsigned int *)(game->mlx->img_data + p->screen_index) = p->ceiling_c;
 		p->y++;
 	}
+}
+
+void	printing_column_helper(t_game *game, t_rc *rc, t_print *p, int x)
+{
+	print_ceiling(game, rc, p, x);
 	p->tex_x = (int)(rc->wall_x * p->cur_t->width);
 	while (p->y < rc->draw_end)
 	{
@@ -81,9 +87,9 @@ void	printing_column(t_game *game, t_rc *rc, int x)
 		else
 			print.cur_t = game->no_texture;
 	}
-	print.ceiling_c = rgb_transformation(game->map->ceiling->r, 
+	print.ceiling_c = rgb_transformation(game->map->ceiling->r,
 			game->map->ceiling->g, game->map->ceiling->b);
-	print.floor_c = rgb_transformation(game->map->floor->r, 
+	print.floor_c = rgb_transformation(game->map->floor->r,
 			game->map->floor->g, game->map->floor->b);
 	print.y = 0;
 	printing_column_helper(game, rc, &print, x);

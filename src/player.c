@@ -3,60 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lshapkin <lshapkin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 16:57:32 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/07/25 16:57:34 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/07/25 20:02:05 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	wall_check(double move_speed, t_game *game, int code)
+void	set_position(int code, double move_speed, t_game *game,
+			t_wall_check *check)
 {
-	double	x;
-	double	y;
-	double	radius;
-	int	x_min;
-    int	x_max;
-    int	y_min;
-    int	y_max;
-
 	if (code == 1)
 	{
-		x = (game->player->x + game->player->dir_x * move_speed);
-		y = (game->player->y + game->player->dir_y * move_speed);
+		check->x = (game->player->x + game->player->dir_x * move_speed);
+		check->y = (game->player->y + game->player->dir_y * move_speed);
 	}
 	if (code == 2)
 	{
-		x = (game->player->x - game->player->dir_x * move_speed);
-		y = (game->player->y - game->player->dir_y * move_speed);
+		check->x = (game->player->x - game->player->dir_x * move_speed);
+		check->y = (game->player->y - game->player->dir_y * move_speed);
 	}
 	if (code == 3)
 	{
-		x = (game->player->x - game->player->dir_y * move_speed);
-		y = (game->player->y + game->player->dir_x * move_speed);
+		check->x = (game->player->x - game->player->dir_y * move_speed);
+		check->y = (game->player->y + game->player->dir_x * move_speed);
 	}
 	if (code == 4)
 	{
-		x = (game->player->x + game->player->dir_y * move_speed);
-		y = (game->player->y - game->player->dir_x * move_speed);
+		check->x = (game->player->x + game->player->dir_y * move_speed);
+		check->y = (game->player->y - game->player->dir_x * move_speed);
 	}
-	radius = 0.2;
-	x_min = (int)(x - radius);
-    x_max = (int)(x + radius);
-    y_min = (int)(y - radius);
-    y_max = (int)(y + radius);
+}
 
-    for (int i = y_min; i <= y_max; i++)
-    {
-        for (int j = x_min; j <= x_max; j++)
-        {
-            if (game->map->map[i][j] == '1')
-                return 0; // collision
-        }
-    }
-    return 1; // no collision
+int	wall_check(double move_speed, t_game *game, int code)
+{
+	t_wall_check	check;
+	int				i;
+	int				j;
+
+	set_position(code, move_speed, game, &check);
+	check.radius = 0.2;
+	check.x_min = (int)(check.x - check.radius);
+	check.x_max = (int)(check.x + check.radius);
+	check.y_min = (int)(check.y - check.radius);
+	check.y_max = (int)(check.y + check.radius);
+	i = check.y_min;
+	while (i <= check.y_max)
+	{
+		j = check.x_min;
+		while (j <= check.x_max)
+		{
+			if (game->map->map[i][j] == '1')
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
 }
 
 void	move_player(t_game *game, t_player *player)

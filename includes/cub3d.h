@@ -63,21 +63,21 @@ typedef struct s_rc
 	int		map_y;
 	double	ray_dir_x;
 	double	ray_dir_y;
-	double 	delta_dist_x;
-	double 	delta_dist_y;
-	double 	plane_x;
-	double 	plane_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	plane_x;
+	double	plane_y;
 	int		step_x;
-	int 	step_y;
-	double 	side_dist_x;
-	double 	side_dist_y;
+	int		step_y;
+	double	side_dist_x;
+	double	side_dist_y;
 	int		side;
 	double	wall_dist;
 	double	ray_dist;
-	int 	line_height;
-	int 	draw_start;
-	int 	draw_end;
-	double 	wall_x;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+	double	wall_x;
 }	t_rc;
 
 typedef struct s_color
@@ -145,10 +145,20 @@ typedef struct s_print
 	int			floor_c;
 	int			ceiling_c;
 	int			screen_index;
-	t_texture 	*cur_t;
+	t_texture	*cur_t;
 
 }	t_print;
 
+typedef struct s_wall_check
+{
+	double	x;
+	double	y;
+	double	radius;
+	int		x_min;
+	int		x_max;
+	int		y_min;
+	int		y_max;
+}	t_wall_check;
 
 // Array Creation
 int		count_lines(char *cub_address);
@@ -202,7 +212,7 @@ void	free_init(t_init *init);
 int		argument_validation(int arc, char **arv);
 int		file_validation(t_game	*game, char *argument);
 void	update_player(t_game *game);
-// Temporary
-void	test_all_textures(t_game *game);
+// Free
+void	free_all(t_game	*game);
 
 #endif

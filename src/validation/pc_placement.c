@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pc_placement.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lshapkin <lshapkin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 16:57:26 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/07/25 16:57:27 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/07/25 20:10:33 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
 void	set_starting_point(t_map *map, t_player *player, int y, int x)
 {

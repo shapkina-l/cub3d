@@ -3,37 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lshapkin <lshapkin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 16:56:50 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/07/25 16:56:53 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/07/25 20:01:23 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	file_validation(t_game	*game, char *argument)
-{
-	t_init		init;
-
-	initialize_init(&init);
-	if (!build_array_from_file(&init, argument))
-		return (free_init(&init), 0);
-	if (!validate_cub_elements(&init))
-		return (free_init(&init), 0);
-	initialize_map(game->map);
-	if (!set_map_data(&init, game->map))
-		return (free_init(&init), 0);
-	if (!validate_map_chars(game->map))
-		return (free_init(&init), 0);
-	if (!validate_map_boundaries(&init))
-		return (free_init(&init), 0);
-	find_starting_point(game->map, game->player);
-	free_init(&init);
-	return (1);
-}
-
-int	init_game_extra(t_game *game)
+int	init_game_extra(t_game *game, char *argument)
 {
 	game->map = malloc(sizeof(t_map));
 	if (!game->map)
@@ -43,6 +22,12 @@ int	init_game_extra(t_game *game)
 	if (!game->player)
 		return (0);
 	ft_memset(game->player, 0, sizeof(t_player));
+	if (!file_validation(game, argument))
+		return (0);
+	game->raycast = malloc(sizeof(t_rc));
+	if (!game->raycast)
+		return (1);
+	ft_memset(game->raycast, 0, sizeof(t_rc));
 	return (1);
 }
 
@@ -52,13 +37,7 @@ int	init_game(t_game	*game, char *argument)
 	if (!game->mlx)
 		return (1);
 	ft_memset(game->mlx, 0, sizeof(t_mlx));
-	init_game_extra(game);
-	if (!file_validation(game, argument))
-		return (1);
-	game->raycast = malloc(sizeof(t_rc));
-	if (!game->raycast)
-		return (1);
-	ft_memset(game->raycast, 0, sizeof(t_rc));
+	init_game_extra(game, argument);
 	game->no_texture = malloc(sizeof(t_texture));
 	if (!game->no_texture)
 		return (1);
@@ -83,34 +62,6 @@ int	game_loop(t_game *game)
 	update_player(game);
 	raycasting(game);
 	return (0);
-}
-
-int	argument_validation(int arc, char **arv)
-{
-	if (arc != 2)
-		return (error_msg("One .cub file address argument needed."), 0);
-	if (!validate_file_format(arv[1]))
-		return (error_msg("Argument must be valid .cub file address."), 0);
-	return (1);
-}
-
-void	fill_screen(t_game *game)
-{
-	int	j;
-	int	i;
-
-	j = 0;
-	while (j < WIN_HEIGHT)
-	{
-		i = 0;
-		while (i < WIN_WIDTH)
-		{
-			mlx_pixel_put(game->mlx->mlx_ptr,
-				game->mlx->win_ptr, i, j, 0x00FF00);
-			i++;
-		}
-		j++;
-	}
 }
 
 int	main(int arc, char **arv)
