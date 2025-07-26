@@ -6,7 +6,7 @@
 /*   By: lshapkin <lshapkin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 16:50:11 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/07/25 20:08:35 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/07/26 14:20:13 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	rgb_transformation(int r, int g, int b)
 		| (b & 0xFF));
 }
 
-//segfault with cheeze map
 void	print_ceiling(t_game *game, t_rc *rc, t_print *p, int x)
 {
 	while (p->y < rc->draw_start)
@@ -34,6 +33,8 @@ void	printing_column_helper(t_game *game, t_rc *rc, t_print *p, int x)
 {
 	print_ceiling(game, rc, p, x);
 	p->tex_x = (int)(rc->wall_x * p->cur_t->width);
+	if (rc->side == 1 && rc->step_y > 0)
+		p->tex_x = p->cur_t->width - p->tex_x - 1;
 	while (p->y < rc->draw_end)
 	{
 		p->tex_y = (int)(p->y - (-rc->line_height / 2 + WIN_HEIGHT / 2))

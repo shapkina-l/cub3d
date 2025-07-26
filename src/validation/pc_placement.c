@@ -6,7 +6,7 @@
 /*   By: lshapkin <lshapkin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 16:57:26 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/07/25 20:10:33 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/07/26 14:17:53 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	set_starting_point(t_map *map, t_player *player, int y, int x)
 {
 	char	direction;
 
-	player->x = x;
-	player->y = y;
+	player->x = x + 0.5;
+	player->y = y + 0.5;
 	direction = map->map[y][x];
 	if (direction == 'S')
 	{

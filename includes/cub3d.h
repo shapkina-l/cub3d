@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lshapkin <lshapkin@student.42berlin.de>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/26 14:17:14 by lshapkin          #+#    #+#             */
+/*   Updated: 2025/07/26 14:17:18 by lshapkin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -42,6 +53,7 @@ typedef struct s_player
 	int		move_right;
 	int		rotate_left;
 	int		rotate_right;
+	int		move_flag;
 }	t_player;
 
 typedef struct s_mlx
