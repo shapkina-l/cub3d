@@ -6,7 +6,7 @@
 /*   By: lshapkin <lshapkin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 14:17:14 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/07/26 14:17:18 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/07/30 23:06:00 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@
 # define RIGHT_KEY	65363
 # define WIN_WIDTH	1200
 # define WIN_HEIGHT	900
+# define MAX_OBJECTS 50
+
 
 typedef struct s_player
 {
@@ -121,6 +123,14 @@ typedef struct s_texture
 	int		endian;
 }	t_texture;
 
+typedef struct s_object
+{
+    double x;
+    double y;
+    int active;         // 1 if object exists, 0 if collected
+    double distance;    // distance from player (for sorting)
+} t_object;
+
 typedef struct s_game
 {
 	t_mlx			*mlx;
@@ -131,6 +141,11 @@ typedef struct s_game
 	t_texture		*ea_texture;
 	t_player		*player;
 	t_rc			*raycast;
+	t_object		objects[MAX_OBJECTS];
+	int				object_count;
+	t_texture		*object_texture;
+	double			*z_buffer;
+	int				score;
 }	t_game;
 
 typedef struct s_init
@@ -214,6 +229,7 @@ int		error_msg(char *message);
 int		game_loop(t_game *game);
 int		setup_events(t_game *game);
 int		exit_game(t_game *game);
+int		load_texture(t_game *game, t_texture *texture, char *path);
 int		load_textures(t_game *game);
 int		validate_textures(t_game *game);
 // Raycasting
@@ -226,5 +242,16 @@ int		file_validation(t_game	*game, char *argument);
 void	update_player(t_game *game);
 // Free
 void	free_all(t_game	*game);
+// Books
+void init_objects_from_map(t_game *game);
+void calculate_object_distances(t_game *game);
+void sort_objects_by_distance(t_game *game);
+void check_object_collection(t_game *game);
+void render_object_sprite(t_game *game, t_object *obj);
+void render_objects(t_game *game);
+//void create_simple_object_texture(t_game *game, t_texture *texture, unsigned int color);
+int load_object_texture(t_game *game);
+int all_objects_collected(t_game *game);
+
 
 #endif

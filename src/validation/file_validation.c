@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_validation.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lshapkin <lshapkin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 16:56:04 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/07/25 16:56:05 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/07/30 14:27:46 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	validate_map_chars(t_map *map)
 		while (map->map[j][i])
 		{
 			c = map->map[j][i];
-			if (!(c == '0' || c == '1' || c == 'N' || c == 'E'
+			if (!(c == '0' || c == '1' || c == 'N' || c == 'E' || c == 'B'
 					|| c == 'S' || c == 'W' || c == ' ' || c == '\n'))
 				return (0);
 			if (c == 'N' || c == 'E' || c == 'S' || c == 'W')
