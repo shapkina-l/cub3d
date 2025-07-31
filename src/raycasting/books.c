@@ -84,7 +84,7 @@ void	check_object_collection(t_game *game)
 	double	dy;
 	double	distance;
 
-	collection_distance = 0.4;
+	collection_distance = 0.9;
 	i = 0;
 	while (i < game->object_count)
 	{
@@ -97,7 +97,7 @@ void	check_object_collection(t_game *game)
 			{
 				game->objects[i].active = 0;
 				game->score += 10;
-				//printf("Object collected! Score: %d\n", game->score);
+				printf("Object collected! Score: %d\n", game->score);
 			}
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: lshapkin <lshapkin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 16:49:13 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/07/30 14:11:59 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/07/31 19:15:43 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ void	raycasting(t_game *game)
 	// Initialize z-buffer if not already done
 	if (!game->z_buffer)
         game->z_buffer = malloc(sizeof(double) * WIN_WIDTH);
-		
 	x = 0;
 	while (x < WIN_WIDTH)
 	{

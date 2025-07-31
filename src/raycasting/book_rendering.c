@@ -1,85 +1,123 @@
 
 #include "../../includes/cub3d.h"
 
-void	render_object_sprite(t_game *game, t_object *obj)
+typedef struct s_book_rendering
 {
-	if (!obj->active)
-		return ;
+	double			sprite_x;
+	double			sprite_y;
+	double			inv_det;
+	double			transform_x;
+	double			transform_y;
+	int				sp_screen_x;
+	int				sprite_height;
+	int				sprite_width;
+	int				draw_start_y;
+	int				draw_end_y;
+	int				draw_start_x;
+	int				draw_end_x;
+	int				tex_x;
+	int				tex_y;
+	int				pixel_index;
+	int				y;
+	int				d;
+	unsigned int	color;
+	int				s_i;
+}	t_book_rendering;
 
+int	render_object_step_one(t_game *game, t_object *obj, t_book_rendering *b)
+{
 	// Transform object position to screen coordinates
-	double sprite_x = obj->x - game->player->x;
-	double sprite_y = obj->y - game->player->y;
-
+	b->sprite_x = obj->x - game->player->x;
+	b->sprite_y = obj->y - game->player->y;
 	// Apply inverse camera transformation
-	double inv_det = 1.0 / (game->raycast->plane_x * game->player->dir_y -
-							game->player->dir_x * game->raycast->plane_y);
-
-	double transform_x = inv_det * (game->player->dir_y * sprite_x -
-									game->player->dir_x * sprite_y);
-	double transform_y = inv_det * (-game->raycast->plane_y * sprite_x +
-									game->raycast->plane_x * sprite_y);
-
+	b->inv_det = 1.0 / (game->raycast->plane_x * game->player->dir_y
+			- game->player->dir_x * game->raycast->plane_y);
+	b->transform_x = b->inv_det * (game->player->dir_y * b->sprite_x
+			- game->player->dir_x * b->sprite_y);
+	b->transform_y = b->inv_det * (-game->raycast->plane_y * b->sprite_x
+			+ game->raycast->plane_x * b->sprite_y);
 	// Don't render if behind player
-	if (transform_y <= 0)
-		return ;
-
+	if (b->transform_y <= 0)
+		return (1);
 	// Calculate sprite screen position
-	int sprite_screen_x = (int)((WIN_WIDTH / 2) * (1 + transform_x / transform_y));
-
+	b->sp_screen_x = (int)((WIN_WIDTH / 2) * (1 + b->transform_x / b->transform_y));
 	// Calculate sprite height and width with configurable scale
-	int sprite_height = abs((int)(WIN_HEIGHT / transform_y * 0.3));
-	int sprite_width = abs((int)(WIN_HEIGHT / transform_y * 0.3));
+	b->sprite_height = abs((int)(WIN_HEIGHT / b->transform_y * 0.3));
+	b->sprite_width = abs((int)(WIN_HEIGHT / b->transform_y * 0.3));
+	return (0);
+}
 
-	// Calculate drawing bounds
-	int draw_start_y = -sprite_height / 2 + WIN_HEIGHT / 2;
-	if (draw_start_y < 0)
-		draw_start_y = 0;
-	int draw_end_y = sprite_height / 2 + WIN_HEIGHT / 2;
-	if (draw_end_y >= WIN_HEIGHT)
-		draw_end_y = WIN_HEIGHT - 1;
+void	render_object_step_two(t_book_rendering *b)
+{
+	// Calculate drawing bounds - modified for floor positioning
+	// Instead of centering vertically, position the bottom of the sprite at screen center
+	b->draw_start_y = WIN_HEIGHT / 2 + ((float)b->sprite_height);
+	if (b->draw_start_y < 0)
+		b->draw_start_y = 0;
+	b->draw_end_y = WIN_HEIGHT / 2 + b->sprite_height + ((float)b->sprite_height);
 
-	int draw_start_x = -sprite_width / 2 + sprite_screen_x;
-	if (draw_start_x < 0)
-		draw_start_x = 0;
-	int draw_end_x = sprite_width / 2 + sprite_screen_x;
-	if (draw_end_x >= WIN_WIDTH)
-		draw_end_x = WIN_WIDTH - 1;
+	if (b->draw_end_y >= WIN_HEIGHT)
+		b->draw_end_y = WIN_HEIGHT - 1;
 
-	// Use the single object texture
-	t_texture *sprite_texture = game->object_texture;
-	if (!sprite_texture)
-		return;
+	// Horizontal positioning remains the same
+	b->draw_start_x = -b->sprite_width / 2 + b->sp_screen_x;
+	if (b->draw_start_x < 0)
+		b->draw_start_x = 0;
+	b->draw_end_x = b->sprite_width / 2 + b->sp_screen_x;
+	if (b->draw_end_x >= WIN_WIDTH)
+		b->draw_end_x = WIN_WIDTH - 1;
+}
 
-	// Render sprite column by column
-	int stripe;
-	for (stripe = draw_start_x; stripe < draw_end_x; stripe++)
+void	render_object_stripe(int stripe, t_texture *texture,
+								t_game *game, t_book_rendering *b)
+{
+	b->tex_x = (int)(256 * (stripe - (-b->sprite_width / 2 + b->sp_screen_x))
+			* texture->width / b->sprite_width) / 256;
+	if (b->transform_y > 0 && stripe > 0 && stripe < WIN_WIDTH
+		&& b->transform_y < game->z_buffer[stripe])
 	{
-		int tex_x = (int)(256 * (stripe - (-sprite_width / 2 + sprite_screen_x)) *
-						  sprite_texture->width / sprite_width) / 256;
-		// Check if this pixel is closer than the wall (Z-buffer check)
-		if (transform_y > 0 && stripe > 0 && stripe < WIN_WIDTH &&
-			transform_y < game->z_buffer[stripe])
+		b->y = b->draw_start_y;
+		while (b->y < b->draw_end_y)
 		{
-			int y;
-			for (y = draw_start_y; y < draw_end_y; y++)
+			// Modified texture Y calculation for floor positioning
+			b->d = (b->y - b->draw_start_y) * 256;
+			b->tex_y = (b->d * texture->height) / (b->sprite_height * 256);
+			if (b->tex_y >= 0 && b->tex_y < texture->height)
 			{
-				int d = (y) * 256 - WIN_HEIGHT * 128 + sprite_height * 128;
-				int tex_y = ((d * sprite_texture->height) / sprite_height) / 256;
-
-				if (tex_y >= 0 && tex_y < sprite_texture->height)
+				b->pixel_index = b->tex_y * texture->line_len
+					+ b->tex_x * (texture->bpp / 8);
+				b->color = *(unsigned int *)(texture->addr + b->pixel_index);
+				if ((b->color & 0x00FFFFFF) != 0)
 				{
-					int pixel_index = tex_y * sprite_texture->line_len +
-									  tex_x * (sprite_texture->bpp / 8);
-					unsigned int color = *(unsigned int *)(sprite_texture->addr + pixel_index);
-
-					// Don't draw transparent pixels (assuming black is transparent)
-					if ((color & 0x00FFFFFF) != 0)
-					{
-						int screen_index = (y * WIN_WIDTH + stripe) * (game->mlx->bpp / 8);
-						*(unsigned int *)(game->mlx->img_data + screen_index) = color;
-					}
+					b->s_i = (b->y * WIN_WIDTH + stripe) * (game->mlx->bpp / 8);
+					*(unsigned int *)(game->mlx->img_data + b->s_i) = b->color;
 				}
 			}
+			b->y++;
 		}
+	}
+}
+
+void	render_object_sprite(t_game *game, t_object *obj)
+{
+	t_book_rendering	b;
+	t_texture			*sprite_texture;
+	int					stripe;
+
+	if (!obj->active)
+		return ;
+	if (render_object_step_one(game, obj, &b))
+		return ;
+	render_object_step_two(&b);
+	// Use the single object texture
+	sprite_texture = game->object_texture;
+	if (!sprite_texture)
+		return ;
+	// Render sprite column by column
+	stripe = b.draw_start_x;
+	while (stripe < b.draw_end_x)
+	{
+		render_object_stripe(stripe, sprite_texture, game, &b);
+		stripe++;
 	}
 }
