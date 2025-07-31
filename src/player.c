@@ -6,7 +6,7 @@
 /*   By: lshapkin <lshapkin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 16:57:32 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/07/25 20:02:05 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/07/31 20:34:29 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	move_player(t_game *game, t_player *player)
 {
 	double	move_speed;
 
-	move_speed = 0.02;
+	move_speed = 0.05;
 	if (player->move_forward == 1 && wall_check(move_speed, game, 1))
 	{
 		player->x += player->dir_x * move_speed;

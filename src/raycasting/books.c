@@ -133,22 +133,22 @@ int	load_object_texture(t_game *game)
 	return (0);
 }
 
-// // Count remaining objects (useful for win condition)
-// int count_remaining_objects(t_game *game)
-// {
-// 	int i, count = 0;
+// Count remaining objects (useful for win condition)
+int count_remaining_objects(t_game *game)
+{
+	int i, count = 0;
 
-// 	for (i = 0; i < game->object_count; i++)
-// 	{
-// 		if (game->objects[i].active)
-// 			count++;
-// 	}
+	for (i = 0; i < game->object_count; i++)
+	{
+		if (game->objects[i].active)
+			count++;
+	}
 
-// 	return count;
-// }
+	return count;
+}
 
-// // Check if all objects are collected
-// int all_objects_collected(t_game *game)
-// {
-// 	return (count_remaining_objects(game) == 0);
-// }
+// Check if all objects are collected
+int all_objects_collected(t_game *game)
+{
+	return (count_remaining_objects(game) == 0);
+}

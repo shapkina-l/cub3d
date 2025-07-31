@@ -6,7 +6,7 @@
 /*   By: lshapkin <lshapkin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 16:49:13 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/07/31 19:15:43 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/07/31 20:22:14 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,4 +122,5 @@ void	raycasting(t_game *game)
 	
 	mlx_put_image_to_window(game->mlx->mlx_ptr, game->mlx->win_ptr,
 		game->mlx->img_ptr, 0, 0);
+	render_score(game);
 }

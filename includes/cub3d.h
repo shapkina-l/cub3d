@@ -6,7 +6,7 @@
 /*   By: lshapkin <lshapkin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 14:17:14 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/07/31 16:38:37 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/07/31 20:21:06 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,9 +249,9 @@ void	sort_objects_by_distance(t_game *game);
 void	check_object_collection(t_game *game);
 void	render_object_sprite(t_game *game, t_object *obj);
 void	render_objects(t_game *game);
-//void create_simple_object_texture(t_game *game, t_texture *texture, unsigned int color);
 int		load_object_texture(t_game *game);
 int		all_objects_collected(t_game *game);
+void	render_score(t_game *game);
 
 
 #endif
