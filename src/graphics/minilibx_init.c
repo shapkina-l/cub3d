@@ -6,7 +6,7 @@
 /*   By: lshapkin <lshapkin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 16:48:21 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/07/30 14:18:45 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/08/01 13:16:04 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,6 @@ int	init_graphics(t_game *game)
 		return (1);
 	if (load_textures(game))
 		return (1);
-	if (load_object_texture(game))  // Add this line
-        return (1);
-	// Initialize objects from map after everything is loaded
-    init_objects_from_map(game);
+	init_objects_from_map(game);
 	return (0);
 }

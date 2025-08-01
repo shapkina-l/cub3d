@@ -6,7 +6,7 @@
 /*   By: lshapkin <lshapkin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 16:56:50 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/07/30 14:11:29 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/08/01 13:50:48 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,18 @@ int	init_game_extra(t_game *game, char *argument)
 	if (!game->raycast)
 		return (0);
 	ft_memset(game->raycast, 0, sizeof(t_rc));
+	game->object_texture = malloc(sizeof(t_texture));
+	if (!game->object_texture)
+		return (1);
+	ft_memset(game->object_texture, 0, sizeof(t_texture));
+	game->z_buffer = malloc(sizeof(double) * WIN_WIDTH);
+	if (!game->z_buffer)
+		return (1);
+	game->ceiling_texture = malloc(sizeof(t_texture));
+	if (!game->ceiling_texture)
+		return (1);
+	ft_memset(game->ceiling_texture, 0, sizeof(t_texture));
+	game->score = 0;
 	return (1);
 }
 
@@ -55,18 +67,19 @@ int	init_game(t_game	*game, char *argument)
 	if (!game->we_texture)
 		return (1);
 	ft_memset(game->we_texture, 0, sizeof(t_texture));
-    // Initialize object-related fields
-    game->z_buffer = NULL;
-    game->score = 0;
 	return (0);
 }
 
 int	game_loop(t_game *game)
 {
+	if (all_objects_collected(game))
+	{
+		render_congrats_screen(game);
+		return (0);
+	}
 	update_player(game);
 	check_object_collection(game);
 	raycasting(game);
-	//render_objects(game); // Render objects after walls
 	return (0);
 }
 

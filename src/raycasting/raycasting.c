@@ -6,7 +6,7 @@
 /*   By: lshapkin <lshapkin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 16:49:13 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/07/31 20:22:14 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/08/01 13:35:59 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,6 @@ void	raycasting(t_game *game)
 	rc = game->raycast;
 	rc->plane_x = -1 * game->player->dir_y;
 	rc->plane_y = +1 * game->player->dir_x;
-
-	// Initialize z-buffer if not already done
-	if (!game->z_buffer)
-        game->z_buffer = malloc(sizeof(double) * WIN_WIDTH);
 	x = 0;
 	while (x < WIN_WIDTH)
 	{
@@ -109,17 +105,11 @@ void	raycasting(t_game *game)
 		step_calculation(game, rc);
 		dda(game, rc);
 		wall_height(game, rc);
-
-		// Store wall distance for z-buffer
 		game->z_buffer[x] = rc->wall_dist;
-		 
 		printing_column(game, rc, x);
 		x++;
 	}
-
-	// Render objects after walls
 	render_objects(game);
-	
 	mlx_put_image_to_window(game->mlx->mlx_ptr, game->mlx->win_ptr,
 		game->mlx->img_ptr, 0, 0);
 	render_score(game);

@@ -1,47 +1,20 @@
 
 #include "../../includes/cub3d.h"
 
-typedef struct s_book_rendering
-{
-	double			sprite_x;
-	double			sprite_y;
-	double			inv_det;
-	double			transform_x;
-	double			transform_y;
-	int				sp_screen_x;
-	int				sprite_height;
-	int				sprite_width;
-	int				draw_start_y;
-	int				draw_end_y;
-	int				draw_start_x;
-	int				draw_end_x;
-	int				tex_x;
-	int				tex_y;
-	int				pixel_index;
-	int				y;
-	int				d;
-	unsigned int	color;
-	int				s_i;
-}	t_book_rendering;
-
 int	render_object_step_one(t_game *game, t_object *obj, t_book_rendering *b)
 {
-	// Transform object position to screen coordinates
 	b->sprite_x = obj->x - game->player->x;
 	b->sprite_y = obj->y - game->player->y;
-	// Apply inverse camera transformation
 	b->inv_det = 1.0 / (game->raycast->plane_x * game->player->dir_y
 			- game->player->dir_x * game->raycast->plane_y);
 	b->transform_x = b->inv_det * (game->player->dir_y * b->sprite_x
 			- game->player->dir_x * b->sprite_y);
 	b->transform_y = b->inv_det * (-game->raycast->plane_y * b->sprite_x
 			+ game->raycast->plane_x * b->sprite_y);
-	// Don't render if behind player
 	if (b->transform_y <= 0)
 		return (1);
-	// Calculate sprite screen position
-	b->sp_screen_x = (int)((WIN_WIDTH / 2) * (1 + b->transform_x / b->transform_y));
-	// Calculate sprite height and width with configurable scale
+	b->sp_screen_x = (int)((WIN_WIDTH / 2)
+			* (1 + b->transform_x / b->transform_y));
 	b->sprite_height = abs((int)(WIN_HEIGHT / b->transform_y * 0.3));
 	b->sprite_width = abs((int)(WIN_HEIGHT / b->transform_y * 0.3));
 	return (0);
@@ -49,17 +22,13 @@ int	render_object_step_one(t_game *game, t_object *obj, t_book_rendering *b)
 
 void	render_object_step_two(t_book_rendering *b)
 {
-	// Calculate drawing bounds - modified for floor positioning
-	// Instead of centering vertically, position the bottom of the sprite at screen center
 	b->draw_start_y = WIN_HEIGHT / 2 + ((float)b->sprite_height);
 	if (b->draw_start_y < 0)
 		b->draw_start_y = 0;
-	b->draw_end_y = WIN_HEIGHT / 2 + b->sprite_height + ((float)b->sprite_height);
-
+	b->draw_end_y = WIN_HEIGHT / 2 + b->sprite_height
+		+ ((float)b->sprite_height);
 	if (b->draw_end_y >= WIN_HEIGHT)
 		b->draw_end_y = WIN_HEIGHT - 1;
-
-	// Horizontal positioning remains the same
 	b->draw_start_x = -b->sprite_width / 2 + b->sp_screen_x;
 	if (b->draw_start_x < 0)
 		b->draw_start_x = 0;
@@ -79,7 +48,6 @@ void	render_object_stripe(int stripe, t_texture *texture,
 		b->y = b->draw_start_y;
 		while (b->y < b->draw_end_y)
 		{
-			// Modified texture Y calculation for floor positioning
 			b->d = (b->y - b->draw_start_y) * 256;
 			b->tex_y = (b->d * texture->height) / (b->sprite_height * 256);
 			if (b->tex_y >= 0 && b->tex_y < texture->height)
@@ -109,11 +77,9 @@ void	render_object_sprite(t_game *game, t_object *obj)
 	if (render_object_step_one(game, obj, &b))
 		return ;
 	render_object_step_two(&b);
-	// Use the single object texture
 	sprite_texture = game->object_texture;
 	if (!sprite_texture)
 		return ;
-	// Render sprite column by column
 	stripe = b.draw_start_x;
 	while (stripe < b.draw_end_x)
 	{

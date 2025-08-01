@@ -6,7 +6,7 @@
 /*   By: lshapkin <lshapkin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 14:17:14 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/07/31 20:21:06 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/08/01 14:39:30 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,11 +125,11 @@ typedef struct s_texture
 
 typedef struct s_object
 {
-    double x;
-    double y;
-    int active;         // 1 if object exists, 0 if collected
-    double distance;    // distance from player (for sorting)
-} t_object;
+	double	x;
+	double	y;
+	int		active;
+	double	distance;
+}	t_object;
 
 typedef struct s_game
 {
@@ -144,6 +144,7 @@ typedef struct s_game
 	t_object		objects[MAX_OBJECTS];
 	int				object_count;
 	t_texture		*object_texture;
+	t_texture		*ceiling_texture;
 	double			*z_buffer;
 	int				score;
 }	t_game;
@@ -186,6 +187,29 @@ typedef struct s_wall_check
 	int		y_min;
 	int		y_max;
 }	t_wall_check;
+
+typedef struct s_book_rendering
+{
+	double			sprite_x;
+	double			sprite_y;
+	double			inv_det;
+	double			transform_x;
+	double			transform_y;
+	int				sp_screen_x;
+	int				sprite_height;
+	int				sprite_width;
+	int				draw_start_y;
+	int				draw_end_y;
+	int				draw_start_x;
+	int				draw_end_x;
+	int				tex_x;
+	int				tex_y;
+	int				pixel_index;
+	int				y;
+	int				d;
+	unsigned int	color;
+	int				s_i;
+}	t_book_rendering;
 
 // Array Creation
 int		count_lines(char *cub_address);
@@ -249,9 +273,12 @@ void	sort_objects_by_distance(t_game *game);
 void	check_object_collection(t_game *game);
 void	render_object_sprite(t_game *game, t_object *obj);
 void	render_objects(t_game *game);
-int		load_object_texture(t_game *game);
 int		all_objects_collected(t_game *game);
 void	render_score(t_game *game);
-
+void	render_congrats_screen(t_game *game);
+void	print_textured_ceiling(t_game *game, t_rc *rc, t_print *p, int x);
+void    print_textured_ceiling(t_game *game, t_rc *rc, t_print *p, int x);
+void    printing_column_helper_walls_and_floor(t_game *game, t_rc *rc, t_print *p, int x);
+int     load_ceiling_texture(t_game *game);
 
 #endif

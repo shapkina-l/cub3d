@@ -1,7 +1,6 @@
 
 #include "../../includes/cub3d.h"
 
-// Find and initialize objects from map (scanning for 'B' characters)
 void	init_objects_from_map(t_game *game)
 {
 	int	i;
@@ -29,7 +28,6 @@ void	init_objects_from_map(t_game *game)
 	}
 }
 
-// Calculate distance from player to each object
 void	calculate_object_distances(t_game *game)
 {
 	int		i;
@@ -49,7 +47,6 @@ void	calculate_object_distances(t_game *game)
 	}
 }
 
-// Sort objects by distance (farthest first for proper rendering)
 void	sort_objects_by_distance(t_game *game)
 {
 	int			i;
@@ -75,7 +72,6 @@ void	sort_objects_by_distance(t_game *game)
 	}
 }
 
-// Check if player is close enough to collect an object
 void	check_object_collection(t_game *game)
 {
 	int		i;
@@ -104,7 +100,6 @@ void	check_object_collection(t_game *game)
 	}
 }
 
-// Main object rendering function - call this after wall rendering
 void	render_objects(t_game *game)
 {
 	int	i;
@@ -120,35 +115,4 @@ void	render_objects(t_game *game)
 		}
 		i++;
 	}
-}
-
-// Load object texture
-int	load_object_texture(t_game *game)
-{
-	game->object_texture = malloc(sizeof(t_texture));
-	if (!game->object_texture)
-		return (1);
-	ft_memset(game->object_texture, 0, sizeof(t_texture));
-	load_texture(game, game->object_texture, "textures/bonus/book.xpm");
-	return (0);
-}
-
-// Count remaining objects (useful for win condition)
-int count_remaining_objects(t_game *game)
-{
-	int i, count = 0;
-
-	for (i = 0; i < game->object_count; i++)
-	{
-		if (game->objects[i].active)
-			count++;
-	}
-
-	return count;
-}
-
-// Check if all objects are collected
-int all_objects_collected(t_game *game)
-{
-	return (count_remaining_objects(game) == 0);
 }
