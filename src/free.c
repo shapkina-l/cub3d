@@ -6,7 +6,7 @@
 /*   By: lshapkin <lshapkin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 19:52:04 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/07/31 19:16:29 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/08/03 19:08:04 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void	free_texture(t_game	*game, char type)
 		ptr = game->ea_texture;
 	else if (type == 'O')
 		ptr = game->object_texture;
+	else if (type == 'C')
+		ptr = game->ceiling_texture;
 	if (ptr)
 	{
 		if (ptr->img)
@@ -95,22 +97,29 @@ void	free_mlx(t_game	*game)
 	free (game->mlx);
 }
 
+void	free_textures(t_game	*game)
+{
+	if (game->no_texture)
+		free_texture(game, 'N');
+	if (game->so_texture)
+		free_texture(game, 'S');
+	if (game->we_texture)
+		free_texture(game, 'W');
+	if (game->ea_texture)
+		free_texture(game, 'E');
+	if (game->object_texture)
+		free_texture(game, 'O');
+	if (game->ceiling_texture)
+		free_texture(game, 'C');
+}
+
 void	free_all(t_game	*game)
 {
 	if (game)
 	{
 		if (game->map)
 			free_map(game);
-		if (game->no_texture)
-			free_texture(game, 'N');
-		if (game->so_texture)
-			free_texture(game, 'S');
-		if (game->we_texture)
-			free_texture(game, 'W');
-		if (game->ea_texture)
-			free_texture(game, 'E');
-		if (game->object_texture)
-			free_texture(game, 'O');
+		free_textures(game);
 		if (game->player)
 			free(game->player);
 		if (game->raycast)

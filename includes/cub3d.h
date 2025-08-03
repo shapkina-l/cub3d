@@ -6,7 +6,7 @@
 /*   By: lshapkin <lshapkin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 14:17:14 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/08/01 14:39:30 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/08/03 18:57:03 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,6 +210,27 @@ typedef struct s_book_rendering
 	unsigned int	color;
 	int				s_i;
 }	t_book_rendering;
+
+typedef struct s_ceiling_print
+{
+	double			ray_dir_x0;
+	double			ray_dir_y0;
+	double			ray_dir_x1;
+	double			ray_dir_y1;
+	double			row_distance;
+	double			floor_step_x;
+	double			floor_step_y;
+	double			floor_x_left;
+	double			floor_y_left;
+	double			floor_x;
+	double			floor_y;
+	int				tex_x;
+	int				tex_y;
+	int				pixel_index;
+	unsigned int	color;
+	double			tex_scale;
+	int				p_y;
+}	t_ceiling_print;
 
 // Array Creation
 int		count_lines(char *cub_address);
