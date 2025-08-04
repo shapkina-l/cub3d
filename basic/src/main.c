@@ -6,7 +6,7 @@
 /*   By: amargolo <amargolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 16:56:50 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/08/04 11:28:03 by amargolo         ###   ########.fr       */
+/*   Updated: 2025/08/04 11:49:10 by amargolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	init_game_extra(t_game *game, char *argument)
 		return (1);
 	game->raycast = malloc(sizeof(t_rc));
 	if (!game->raycast)
-		return (1);
+		return (0);
 	ft_memset(game->raycast, 0, sizeof(t_rc));
 	return (0);
 }

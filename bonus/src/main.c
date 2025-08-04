@@ -6,7 +6,7 @@
 /*   By: amargolo <amargolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 16:56:50 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/08/04 11:27:41 by amargolo         ###   ########.fr       */
+/*   Updated: 2025/08/04 12:01:19 by amargolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,18 @@ int	init_game_extra(t_game *game, char *argument)
 	if (!game->raycast)
 		return (1);
 	ft_memset(game->raycast, 0, sizeof(t_rc));
+	game->object_texture = malloc(sizeof(t_texture));
+	if (!game->object_texture)
+		return (1);
+	ft_memset(game->object_texture, 0, sizeof(t_texture));
+	game->z_buffer = malloc(sizeof(double) * WIN_WIDTH);
+	if (!game->z_buffer)
+		return (1);
+	game->ceiling_texture = malloc(sizeof(t_texture));
+	if (!game->ceiling_texture)
+		return (1);
+	ft_memset(game->ceiling_texture, 0, sizeof(t_texture));
+	game->score = 0;
 	return (0);
 }
 
@@ -70,7 +82,13 @@ int	game_loop(t_game *game)
 	if (elapsed < FRAME_TIME)
 		return (0);
 	last_time = current_time;
+	if (all_objects_collected(game))
+	{
+		render_congrats_screen(game);
+		return (0);
+	}
 	update_player(game);
+	check_object_collection(game);
 	raycasting(game);
 	paint_minimap(game);
 	return (0);

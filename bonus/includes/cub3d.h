@@ -6,7 +6,7 @@
 /*   By: amargolo <amargolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 14:17:14 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/08/04 11:12:40 by amargolo         ###   ########.fr       */
+/*   Updated: 2025/08/04 11:51:44 by amargolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 # define RIGHT_KEY	65363
 # define WIN_WIDTH	1200
 # define WIN_HEIGHT	900
+# define MAX_OBJECTS 50
 
 // Minimap
 # define TILE_SIZE	10
@@ -141,6 +142,14 @@ typedef struct s_texture
 	int		endian;
 }	t_texture;
 
+typedef struct s_object
+{
+	double	x;
+	double	y;
+	int		active;
+	double	distance;
+}	t_object;
+
 typedef struct s_game
 {
 	t_mlx			*mlx;
@@ -152,6 +161,12 @@ typedef struct s_game
 	t_player		*player;
 	t_rc			*raycast;
 	t_minimap		*minimap;
+	t_object		objects[MAX_OBJECTS];
+	int				object_count;
+	t_texture		*object_texture;
+	t_texture		*ceiling_texture;
+	double			*z_buffer;
+	int				score;
 }	t_game;
 
 typedef struct s_init
@@ -192,6 +207,50 @@ typedef struct s_wall_check
 	int		y_min;
 	int		y_max;
 }	t_wall_check;
+
+typedef struct s_book_rendering
+{
+	double			sprite_x;
+	double			sprite_y;
+	double			inv_det;
+	double			transform_x;
+	double			transform_y;
+	int				sp_screen_x;
+	int				sprite_height;
+	int				sprite_width;
+	int				draw_start_y;
+	int				draw_end_y;
+	int				draw_start_x;
+	int				draw_end_x;
+	int				tex_x;
+	int				tex_y;
+	int				pixel_index;
+	int				y;
+	int				d;
+	unsigned int	color;
+	int				s_i;
+}	t_book_rendering;
+
+typedef struct s_ceiling_print
+{
+	double			ray_dir_x0;
+	double			ray_dir_y0;
+	double			ray_dir_x1;
+	double			ray_dir_y1;
+	double			row_distance;
+	double			floor_step_x;
+	double			floor_step_y;
+	double			floor_x_left;
+	double			floor_y_left;
+	double			floor_x;
+	double			floor_y;
+	int				tex_x;
+	int				tex_y;
+	int				pixel_index;
+	unsigned int	color;
+	double			tex_scale;
+	int				p_y;
+}	t_ceiling_print;
 
 // Array Creation
 int		count_lines(char *cub_address);
@@ -235,6 +294,7 @@ int		error_msg(char *message);
 int		game_loop(t_game *game);
 int		setup_events(t_game *game);
 int		exit_game(t_game *game);
+int		load_texture(t_game *game, t_texture *texture, char *path);
 int		load_textures(t_game *game);
 int		validate_textures(t_game *game);
 // Raycasting
@@ -251,5 +311,19 @@ void	free_all(t_game	*game);
 int		init_minimap(t_game *game);
 void	paint_minimap(t_game *game);
 void	free_minimap(t_game	*game);
+// Books
+void	init_objects_from_map(t_game *game);
+void	calculate_object_distances(t_game *game);
+void	sort_objects_by_distance(t_game *game);
+void	check_object_collection(t_game *game);
+void	render_object_sprite(t_game *game, t_object *obj);
+void	render_objects(t_game *game);
+int		all_objects_collected(t_game *game);
+void	render_score(t_game *game);
+void	render_congrats_screen(t_game *game);
+void	print_textured_ceiling(t_game *game, t_rc *rc, t_print *p, int x);
+void    print_textured_ceiling(t_game *game, t_rc *rc, t_print *p, int x);
+void    printing_column_helper_walls_and_floor(t_game *game, t_rc *rc, t_print *p, int x);
+int     load_ceiling_texture(t_game *game);
 
 #endif

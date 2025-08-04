@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amargolo <amargolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 16:49:13 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/07/25 17:00:03 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/08/04 12:03:32 by amargolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,12 @@ void	raycasting(t_game *game)
 		step_calculation(game, rc);
 		dda(game, rc);
 		wall_height(game, rc);
+		game->z_buffer[x] = rc->wall_dist;
 		printing_column(game, rc, x);
 		x++;
 	}
+	render_objects(game);
 	mlx_put_image_to_window(game->mlx->mlx_ptr, game->mlx->win_ptr,
 		game->mlx->img_ptr, 0, 0);
+	render_score(game);
 }

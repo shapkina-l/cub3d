@@ -6,7 +6,7 @@
 /*   By: amargolo <amargolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 19:52:04 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/08/04 11:28:39 by amargolo         ###   ########.fr       */
+/*   Updated: 2025/08/04 11:55:39 by amargolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,29 +93,39 @@ void	free_mlx(t_game	*game)
 	free (game->mlx);
 }
 
+void	free_textures(t_game	*game)
+{
+	if (game->no_texture)
+		free_texture(game, 'N');
+	if (game->so_texture)
+		free_texture(game, 'S');
+	if (game->we_texture)
+		free_texture(game, 'W');
+	if (game->ea_texture)
+		free_texture(game, 'E');
+	if (game->object_texture)
+		free_texture(game, 'O');
+	if (game->ceiling_texture)
+		free_texture(game, 'C');
+}
+
 void	free_all(t_game	*game)
 {
 	if (game)
 	{
 		if (game->map)
 			free_map(game);
-		if (game->no_texture)
-			free_texture(game, 'N');
-		if (game->so_texture)
-			free_texture(game, 'S');
-		if (game->we_texture)
-			free_texture(game, 'W');
-		if (game->ea_texture)
-			free_texture(game, 'E');
+		free_textures(game);
 		if (game->player)
 			free(game->player);
 		if (game->raycast)
 			free (game->raycast);
 		if (game->minimap)
 			free_minimap(game);
+		if (game->z_buffer)
+			free(game->z_buffer);
 		if (game->mlx)
 			free_mlx(game);
-
 		free (game);
 	}
 }

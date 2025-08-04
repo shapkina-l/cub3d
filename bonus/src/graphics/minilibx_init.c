@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minilibx_init.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amargolo <amargolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 16:48:21 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/07/25 16:48:27 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/08/04 12:02:25 by amargolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ int	init_graphics(t_game *game)
 		return (1);
 	if (load_textures(game))
 		return (1);
+	init_objects_from_map(game);
 	return (0);
 }
