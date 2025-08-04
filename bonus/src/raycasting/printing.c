@@ -6,7 +6,7 @@
 /*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 16:50:11 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/08/04 12:36:29 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/08/04 13:38:55 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	rgb_transformation(int r, int g, int b)
 	return (((r & 0xFF) << 16) | ((g & 0xFF) << 8) | (b & 0xFF));
 }
 
-void	printing_column_helper_walls_floor(t_game *game,
+void	printing_column_helper_walls(t_game *game,
 	t_rc *rc, t_print *p, int x)
 {
 	p->tex_x = (int)(rc->wall_x * p->cur_t->width);
@@ -87,18 +87,8 @@ void	printing_column(t_game *game, t_rc *rc, int x)
 	if (game->ceiling_texture && game->ceiling_texture->img
 		&& game->ceiling_texture->addr)
 		print_textured_ceiling(game, rc, &print, x);
-	else
-	{
-		print.ceiling_c = rgb_transformation(game->map->ceiling->r,
-				game->map->ceiling->g, game->map->ceiling->b);
-		while (print.y < rc->draw_start)
-		{
-			print.screen_index = (print.y * WIN_WIDTH + x)
-				* (game->mlx->bpp / 8);
-			*(unsigned int *)(game->mlx->img_data
-					+ print.screen_index) = print.ceiling_c;
-			print.y++;
-		}
-	}
-	printing_column_helper_walls_floor(game, rc, &print, x);
+	printing_column_helper_walls(game, rc, &print, x);
+	if (game->floor_texture && game->floor_texture->img
+		&& game->floor_texture->addr)
+		print_textured_floor(game, rc, &print, x);
 }

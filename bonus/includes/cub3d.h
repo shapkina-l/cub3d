@@ -6,7 +6,7 @@
 /*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 14:17:14 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/08/04 12:49:49 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/08/04 13:25:31 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,7 @@ typedef struct s_game
 	int				object_count;
 	t_texture		*object_texture;
 	t_texture		*ceiling_texture;
+	t_texture		*floor_texture;
 	double			*z_buffer;
 	int				score;
 }	t_game;
@@ -325,7 +326,9 @@ int		all_objects_collected(t_game *game);
 void	render_score(t_game *game);
 void	render_congrats_screen(t_game *game);
 void	print_textured_ceiling(t_game *game, t_rc *rc, t_print *p, int x);
-void	printing_column_helper_walls_floor(t_game *game,
+void	printing_column_helper_walls(t_game *game,
 			t_rc *rc, t_print *p, int x);
+void	print_textured_floor(t_game *game, t_rc *rc, t_print *p, int x);
+void	calculate_ray_dir(t_game *game, t_ceiling_print *c, t_rc *rc);
 
 #endif

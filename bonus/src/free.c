@@ -6,7 +6,7 @@
 /*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 19:52:04 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/08/04 12:46:06 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/08/04 13:19:13 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void	free_texture(t_game	*game, char type)
 		ptr = game->object_texture;
 	else if (type == 'C')
 		ptr = game->ceiling_texture;
+	else if (type == 'F')
+		ptr = game->floor_texture;
 	if (ptr)
 	{
 		if (ptr->img)
@@ -111,4 +113,6 @@ void	free_textures(t_game	*game)
 		free_texture(game, 'O');
 	if (game->ceiling_texture)
 		free_texture(game, 'C');
+	if (game->floor_texture)
+		free_texture(game, 'F');
 }

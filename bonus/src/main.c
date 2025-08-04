@@ -6,7 +6,7 @@
 /*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 16:56:50 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/08/04 12:45:29 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/08/04 13:22:44 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@ int	init_game_extra(t_game *game, char *argument)
 	if (!game->ceiling_texture)
 		return (1);
 	ft_memset(game->ceiling_texture, 0, sizeof(t_texture));
+	game->floor_texture = malloc(sizeof(t_texture));
+	if (!game->floor_texture)
+		return (1);
+	ft_memset(game->floor_texture, 0, sizeof(t_texture));
 	return (0);
 }
 

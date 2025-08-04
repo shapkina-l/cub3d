@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amargolo <amargolo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 16:49:00 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/08/04 12:02:40 by amargolo         ###   ########.fr       */
+/*   Updated: 2025/08/04 13:23:45 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	load_textures(t_game *game)
 	if (load_texture(game, game->object_texture, "textures/bonus/book.xpm"))
 		return (1);
 	if (load_texture(game, game->ceiling_texture, "textures/bonus/ceiling.xpm"))
+		return (1);
+	if (load_texture(game, game->floor_texture, "textures/bonus/floor.xpm"))
 		return (1);
 	return (0);
 }
