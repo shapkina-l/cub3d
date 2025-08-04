@@ -6,7 +6,7 @@
 /*   By: amargolo <amargolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 16:57:32 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/08/04 12:02:07 by amargolo         ###   ########.fr       */
+/*   Updated: 2025/08/04 12:08:54 by amargolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	rotate_player(t_player *player, t_rc *rc)
 	double	old_dir_x;
 	double	old_plane_x;
 
-	speed = 0.06;
+	speed = 0.05;
 	if (player->rotate_right == 1)
 	{
 		old_dir_x = player->dir_x;
@@ -124,7 +124,7 @@ void	update_player(t_game *game)
 
 	move.x = 0;
 	move.y = 0;
-	move_speed = 0.10;
+	move_speed = 0.06;
 	move_player(game, game->player, move, move_speed);
 	rotate_player(game->player, game->raycast);
 }

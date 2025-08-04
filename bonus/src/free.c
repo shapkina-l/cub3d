@@ -6,7 +6,7 @@
 /*   By: amargolo <amargolo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 19:52:04 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/08/04 11:55:39 by amargolo         ###   ########.fr       */
+/*   Updated: 2025/08/04 12:14:51 by amargolo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,10 @@ void	free_texture(t_game	*game, char type)
 		ptr = game->we_texture;
 	else if (type == 'E')
 		ptr = game->ea_texture;
+	else if (type == 'O')
+		ptr = game->object_texture;
+	else if (type == 'C')
+		ptr = game->ceiling_texture;
 	if (ptr)
 	{
 		if (ptr->img)
