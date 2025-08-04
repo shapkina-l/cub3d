@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amargolo <amargolo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 14:17:14 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/08/04 12:08:21 by amargolo         ###   ########.fr       */
+/*   Updated: 2025/08/04 12:49:49 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -307,6 +307,9 @@ int		file_validation(t_game	*game, char *argument);
 void	update_player(t_game *game);
 // Free
 void	free_all(t_game	*game);
+void	free_mlx(t_game	*game);
+void	free_textures(t_game	*game);
+void	free_map(t_game	*game);
 // Minimap
 int		init_minimap(t_game *game);
 void	paint_minimap(t_game *game);
@@ -322,8 +325,7 @@ int		all_objects_collected(t_game *game);
 void	render_score(t_game *game);
 void	render_congrats_screen(t_game *game);
 void	print_textured_ceiling(t_game *game, t_rc *rc, t_print *p, int x);
-void    print_textured_ceiling(t_game *game, t_rc *rc, t_print *p, int x);
-void    printing_column_helper_walls_and_floor(t_game *game, t_rc *rc, t_print *p, int x);
-int     load_ceiling_texture(t_game *game);
+void	printing_column_helper_walls_floor(t_game *game,
+			t_rc *rc, t_print *p, int x);
 
 #endif

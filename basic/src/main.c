@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amargolo <amargolo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 16:56:50 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/08/04 11:49:10 by amargolo         ###   ########.fr       */
+/*   Updated: 2025/08/04 13:00:56 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	init_game_extra(t_game *game, char *argument)
 		return (1);
 	game->raycast = malloc(sizeof(t_rc));
 	if (!game->raycast)
-		return (0);
+		return (1);
 	ft_memset(game->raycast, 0, sizeof(t_rc));
 	return (0);
 }

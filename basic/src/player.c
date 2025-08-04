@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amargolo <amargolo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 16:57:32 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/08/04 11:07:56 by amargolo         ###   ########.fr       */
+/*   Updated: 2025/08/04 12:35:34 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	wall_check(t_game *game, t_vec2d move_vec)
 	check.x = game->player->x + move_vec.x;
 	check.y = game->player->y + move_vec.y;
 	check.radius = 0.2;
-
 	check.x_min = (int)(check.x - check.radius);
 	check.x_max = (int)(check.x + check.radius);
 	check.y_min = (int)(check.y - check.radius);

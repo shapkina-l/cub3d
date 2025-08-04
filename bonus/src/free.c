@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amargolo <amargolo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 19:52:04 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/08/04 12:14:51 by amargolo         ###   ########.fr       */
+/*   Updated: 2025/08/04 12:46:06 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,25 +111,4 @@ void	free_textures(t_game	*game)
 		free_texture(game, 'O');
 	if (game->ceiling_texture)
 		free_texture(game, 'C');
-}
-
-void	free_all(t_game	*game)
-{
-	if (game)
-	{
-		if (game->map)
-			free_map(game);
-		free_textures(game);
-		if (game->player)
-			free(game->player);
-		if (game->raycast)
-			free (game->raycast);
-		if (game->minimap)
-			free_minimap(game);
-		if (game->z_buffer)
-			free(game->z_buffer);
-		if (game->mlx)
-			free_mlx(game);
-		free (game);
-	}
 }

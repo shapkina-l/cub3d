@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amargolo <amargolo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 19:52:04 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/08/04 11:28:29 by amargolo         ###   ########.fr       */
+/*   Updated: 2025/08/04 12:35:21 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ void	free_all(t_game	*game)
 			free (game->raycast);
 		if (game->mlx)
 			free_mlx(game);
-
 		free (game);
 	}
 }

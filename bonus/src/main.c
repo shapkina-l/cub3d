@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amargolo <amargolo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 16:56:50 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/08/04 12:16:46 by amargolo         ###   ########.fr       */
+/*   Updated: 2025/08/04 12:45:29 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	init_game_extra(t_game *game, char *argument)
 {
-	game->map = malloc(sizeof(t_map));
 	if (!game->map)
 		return (1);
 	ft_memset(game->map, 0, sizeof(t_map));
@@ -39,7 +38,6 @@ int	init_game_extra(t_game *game, char *argument)
 	if (!game->ceiling_texture)
 		return (1);
 	ft_memset(game->ceiling_texture, 0, sizeof(t_texture));
-	game->score = 0;
 	return (0);
 }
 
@@ -49,8 +47,10 @@ int	init_game(t_game	*game, char *argument)
 	if (!game->mlx)
 		return (1);
 	ft_memset(game->mlx, 0, sizeof(t_mlx));
+	game->map = malloc(sizeof(t_map));
 	if (init_game_extra(game, argument))
 		return (1);
+	game->score = 0;
 	game->no_texture = malloc(sizeof(t_texture));
 	if (!game->no_texture)
 		return (1);
