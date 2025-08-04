@@ -93,7 +93,6 @@ void	check_object_collection(t_game *game)
 			{
 				game->objects[i].active = 0;
 				game->score += 10;
-				printf("Object collected! Score: %d\n", game->score);
 			}
 		}
 		i++;
