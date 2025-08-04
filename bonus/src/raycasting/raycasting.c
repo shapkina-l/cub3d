@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amargolo <amargolo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 16:49:13 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/08/04 12:03:32 by amargolo         ###   ########.fr       */
+/*   Updated: 2025/08/04 12:39:29 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,11 @@ void	step_calculation(t_game *game, t_rc *rc)
 	}
 }
 
-void	raycasting(t_game *game)
+void	raycasting_loop(t_rc	*rc, t_game *game)
 {
 	int		x;
 	double	camera_x;
-	t_rc	*rc;
 
-	rc = game->raycast;
-	rc->plane_x = -1 * game->player->dir_y;
-	rc->plane_y = +1 * game->player->dir_x;
 	x = 0;
 	while (x < WIN_WIDTH)
 	{
@@ -109,6 +105,16 @@ void	raycasting(t_game *game)
 		printing_column(game, rc, x);
 		x++;
 	}
+}
+
+void	raycasting(t_game *game)
+{
+	t_rc	*rc;
+
+	rc = game->raycast;
+	rc->plane_x = -1 * game->player->dir_y;
+	rc->plane_y = +1 * game->player->dir_x;
+	raycasting_loop(rc, game);
 	render_objects(game);
 	mlx_put_image_to_window(game->mlx->mlx_ptr, game->mlx->win_ptr,
 		game->mlx->img_ptr, 0, 0);

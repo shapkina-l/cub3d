@@ -8,7 +8,7 @@ SRC :=	src/main.c src/validation/base_array_building.c src/validation/file_valid
 		src/validation/validation_utils2.c src/validation/map_init.c src/validation/pc_placement.c src/utils.c \
 		src/graphics/minilibx_init.c src/graphics/setup_events.c src/graphics/textures.c src/raycasting/raycasting.c \
 		src/raycasting/printing.c src/player.c src/free.c src/validation/validation.c src/raycasting/books.c \
-		src/raycasting/book_rendering.c src/raycasting/score.c src/raycasting/win.c src/raycasting/ceiling.c src/minimap.c
+		src/raycasting/book_rendering.c src/raycasting/score.c src/raycasting/win.c src/raycasting/ceiling.c src/minimap.c src/raycasting/floor.c
 OBJ := $(SRC:.c=.o)
 INCLUDES := libft/libft.a minilibx-linux/libmlx.a
 

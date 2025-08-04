@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printing.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amargolo <amargolo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 16:50:11 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/08/04 12:03:05 by amargolo         ###   ########.fr       */
+/*   Updated: 2025/08/04 13:38:55 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,23 @@
 
 int	rgb_transformation(int r, int g, int b)
 {
-	return (((r & 0xFF) << 16)
-		| ((g & 0xFF) << 8)
-		| (b & 0xFF));
+	return (((r & 0xFF) << 16) | ((g & 0xFF) << 8) | (b & 0xFF));
 }
 
-// void	print_ceiling(t_game *game, t_rc *rc, t_print *p, int x)
-// {
-// 	while (p->y < rc->draw_start)
-// 	{
-// 		p->screen_index = (p->y * WIN_WIDTH + x) * (game->mlx->bpp / 8);
-// 		*(unsigned int *)(game->mlx->img_data + p->screen_index) = p->ceiling_c;
-// 		p->y++;
-// 	}
-// }
-
-void	printing_column_helper_walls_floor(t_game *game, t_rc *rc, t_print *p, int x)
+void	printing_column_helper_walls(t_game *game,
+	t_rc *rc, t_print *p, int x)
 {
-	// //print_ceiling(game, rc, p, x);
-	// print_textured_ceiling(game, rc, p, x);
 	p->tex_x = (int)(rc->wall_x * p->cur_t->width);
 	if (rc->side == 1 && rc->step_y > 0)
 		p->tex_x = p->cur_t->width - p->tex_x - 1;
 	while (p->y < rc->draw_end)
 	{
-		p->tex_y = (int)(p->y - (-rc->line_height / 2 + WIN_HEIGHT / 2))
-			* p->cur_t->height / rc->line_height;
+		p->tex_y = (int)(p->y -(-rc->line_height
+					/ 2 + WIN_HEIGHT / 2)) * p->cur_t->height / rc->line_height;
 		if (p->tex_y >= p->cur_t->height)
 			p->tex_y = p->cur_t->height - 1;
-		p->pixel_index = p->tex_y * p->cur_t->line_len + p->tex_x
-			* (p->cur_t->bpp / 8);
+		p->pixel_index = p->tex_y
+			* p->cur_t->line_len + p->tex_x * (p->cur_t->bpp / 8);
 		p->color = *(unsigned int *)(p->cur_t->addr + p->pixel_index);
 		p->screen_index = (p->y * WIN_WIDTH + x) * (game->mlx->bpp / 8);
 		*(unsigned int *)(game->mlx->img_data + p->screen_index) = p->color;
@@ -70,45 +57,38 @@ void	initialize_print_struct(t_print *print)
 	print->cur_t = NULL;
 }
 
-void	printing_column(t_game *game, t_rc *rc, int x)
+void	pick_texture(t_print	*print, t_game *game, t_rc *rc)
 {
-	t_print		print;
-
-	initialize_print_struct(&print);
 	if (rc->side == 0)
 	{
 		if (rc->step_x > 0)
-			print.cur_t = game->ea_texture;
+			print->cur_t = game->ea_texture;
 		else
-			print.cur_t = game->we_texture;
+			print->cur_t = game->we_texture;
 	}
 	else
 	{
 		if (rc->step_y > 0)
-			print.cur_t = game->so_texture;
+			print->cur_t = game->so_texture;
 		else
-			print.cur_t = game->no_texture;
+			print->cur_t = game->no_texture;
 	}
-	// print.ceiling_c = rgb_transformation(game->map->ceiling->r,
-	// 		game->map->ceiling->g, game->map->ceiling->b);
+}
+
+void	printing_column(t_game *game, t_rc *rc, int x)
+{
+	t_print	print;
+
+	initialize_print_struct(&print);
+	pick_texture(&print, game, rc);
 	print.floor_c = rgb_transformation(game->map->floor->r,
 			game->map->floor->g, game->map->floor->b);
 	print.y = 0;
-
-// Render textured ceiling - fix the condition to check img_ptr or img
-    if (game->ceiling_texture && game->ceiling_texture->img && game->ceiling_texture->addr)
-        print_textured_ceiling(game, rc, &print, x);
-    else
-    {
-        // Fallback to solid color ceiling if no texture loaded
-        print.ceiling_c = rgb_transformation(game->map->ceiling->r,
-                game->map->ceiling->g, game->map->ceiling->b);
-        while (print.y < rc->draw_start)
-        {
-            print.screen_index = (print.y * WIN_WIDTH + x) * (game->mlx->bpp / 8);
-            *(unsigned int *)(game->mlx->img_data + print.screen_index) = print.ceiling_c;
-            print.y++;
-        }
-    }
-	printing_column_helper_walls_floor(game, rc, &print, x);
+	if (game->ceiling_texture && game->ceiling_texture->img
+		&& game->ceiling_texture->addr)
+		print_textured_ceiling(game, rc, &print, x);
+	printing_column_helper_walls(game, rc, &print, x);
+	if (game->floor_texture && game->floor_texture->img
+		&& game->floor_texture->addr)
+		print_textured_floor(game, rc, &print, x);
 }
