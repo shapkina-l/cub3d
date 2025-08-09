@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lshapkin <lshapkin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lshapkin <lshapkin@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 16:57:32 by lshapkin          #+#    #+#             */
-/*   Updated: 2025/08/04 12:46:45 by lshapkin         ###   ########.fr       */
+/*   Updated: 2025/08/09 16:06:44 by lshapkin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	update_player(t_game *game)
 
 	move.x = 0;
 	move.y = 0;
-	move_speed = 0.06;
+	move_speed = 0.08;
 	move_player(game, game->player, move, move_speed);
 	rotate_player(game->player, game->raycast);
 }
