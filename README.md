@@ -36,4 +36,4 @@ Enhancing gameplay through advanced features like mouse control and dynamic ligh
 
 ## Demo
 
-![demo](https://github.com/shapkina-l/cub3d/demo/1.png)
+![demo](https://github.com/shapkina-l/cub3d/blob/ea925acd6a163c698317b74f27a1c8dc2a2006ec/demo/1.png)
